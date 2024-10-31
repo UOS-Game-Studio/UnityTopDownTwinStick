@@ -5,11 +5,12 @@ namespace PlayerCombat
 {
     public class ReturnProjectileToPool : MonoBehaviour
     {
-        public IObjectPool<GameObject> pool;
-
+        public IObjectPool<PlayerProjectile> pool;
+        public PlayerProjectile projectile; 
+        
         private void OnCollisionEnter(Collision collision)
         {
-            pool.Release(gameObject);
+            pool.Release(projectile);
         }
     }
 }

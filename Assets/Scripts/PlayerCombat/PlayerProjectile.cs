@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace PlayerCombat
@@ -5,16 +6,18 @@ namespace PlayerCombat
     [RequireComponent(typeof(ReturnProjectileToPool))]
     public class PlayerProjectile : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
+        public float moveSpeed;
+        private Rigidbody _rb;
 
+        private void OnEnable()
+        {
+            if(!_rb)
+                _rb = GetComponent<Rigidbody>();
         }
 
-        // Update is called once per frame
-        void Update()
+        public void OnFire(Vector3 dir)
         {
-
+            _rb.linearVelocity = dir * moveSpeed;
         }
     }
 }

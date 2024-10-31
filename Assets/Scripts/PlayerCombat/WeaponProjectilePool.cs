@@ -7,18 +7,18 @@ namespace PlayerCombat
     public class WeaponProjectilePool : MonoBehaviour
     {
         public GameObject projectilePrefab;
-        private IObjectPool<GameObject> _pool;
+        private IObjectPool<PlayerProjectile> _pool;
 
         public bool collectionChecks = true;
         public int maxPoolSize = 10;
 
-        public IObjectPool<GameObject> Pool
+        public IObjectPool<PlayerProjectile> Pool
         {
             get
             {
                 if (_pool == null)
                 {
-                    _pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
+                    _pool = new ObjectPool<PlayerProjectile>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
                         OnDestroyPoolObject, collectionChecks, 10, maxPoolSize);
                 }
 
@@ -26,27 +26,30 @@ namespace PlayerCombat
             }
         }
 
-        private void OnDestroyPoolObject(GameObject obj)
+        private void OnDestroyPoolObject(PlayerProjectile obj)
         {
             Destroy(obj);
         }
 
-        private void OnReturnedToPool(GameObject obj)
+        private void OnReturnedToPool(PlayerProjectile proj)
         {
-            obj.SetActive(false);
+            proj.gameObject.SetActive(false);
         }
 
-        private void OnTakeFromPool(GameObject obj)
+        private void OnTakeFromPool(PlayerProjectile proj)
         {
-            obj.SetActive(false);
+            proj.gameObject.SetActive(true);
         }
 
-        GameObject CreatePooledItem()
+        PlayerProjectile CreatePooledItem()
         {
-            var projectile = Instantiate(projectilePrefab);
-            var returnToPool = projectile.GetComponent<ReturnProjectileToPool>();
+            GameObject projectile = Instantiate(projectilePrefab);
+            PlayerProjectile playerProj = projectile.GetComponent<PlayerProjectile>();
+            ReturnProjectileToPool returnToPool = projectile.GetComponent<ReturnProjectileToPool>();
+            
             returnToPool.pool = Pool;
-            return projectile;
+            returnToPool.projectile = playerProj;
+            return playerProj;
         }
     }
 }
