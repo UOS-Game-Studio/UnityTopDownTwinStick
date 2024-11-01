@@ -54,8 +54,7 @@ public class S_PlayerMovment: MonoBehaviour
         if (direction.magnitude <= 0.2f) return;
         
         const float dirOffset = 2.0f;
-        
-        Debug.Log(direction);
+
         Vector3 offsetPosition = _characterTransform.position + new Vector3(direction.x* dirOffset, 0.0f, direction.y* dirOffset);
         
         Vector3 aimPosition = new Vector3((offsetPosition.x + direction.x) * dirOffset, aimPointObject.position.y, (offsetPosition.z + direction.y) * dirOffset);
