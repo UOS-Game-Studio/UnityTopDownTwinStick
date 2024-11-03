@@ -10,7 +10,8 @@ namespace PlayerCombat
         
         private void OnCollisionEnter(Collision collision)
         {
-            pool.Release(projectile);
+            if(gameObject.activeSelf)
+                pool.Release(projectile);
         }
     }
 }

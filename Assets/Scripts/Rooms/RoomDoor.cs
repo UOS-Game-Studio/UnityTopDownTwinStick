@@ -13,14 +13,15 @@ namespace Rooms
     }
     public class RoomDoor : MonoBehaviour
     {
-        private SpawnPoint _spawnComponent;
         [SerializeField] private Transform spawnTransform;
         [SerializeField] private DoorDirection doorDirection;
-        private bool _isLocked = true;
         [SerializeField] private bool spawnDoor = false;
-
         [SerializeField] private Mesh lockedMesh;
         [SerializeField] private Mesh openMesh;
+        
+        private SpawnPoint _spawnComponent;
+        private bool _isLocked = true;
+
         //[SerializeField] private Mesh closedMesh;
         
         private MeshFilter _meshFilter;
@@ -34,6 +35,9 @@ namespace Rooms
             Debug.Assert(_meshFilter != null);
             
             _spawnComponent.SetSpawnPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
+
+            GameController gameController = GameObject.FindFirstObjectByType<GameController>();
+            gameController.onRoomComplete.AddListener(Unlock);
         }
         
         private void OnTriggerEnter(Collider other)
@@ -57,8 +61,9 @@ namespace Rooms
         
         public void Unlock()
         {
+            if (spawnDoor) return;
+            
             _isLocked = false;
-
             _meshFilter.mesh = openMesh;
         }
     }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 namespace Rooms
@@ -14,13 +15,22 @@ namespace Rooms
         [SerializeField] private int enemiesToSpawnInRoom;
         [SerializeField] private int enemiesInRoomAtStart;
         [SerializeField] private float spawnRate = 2.0f;
+
+        public UnityEvent spawnedEnemy = new UnityEvent();
+        public UnityEvent<int> roomStarted = new UnityEvent<int>();
         
         private SpawnPoint[] _startPoints;
         private SpawnPoint[] _validDoors;
         private int _spawnCount = 0;
         
         private WaitForSeconds _coroutineWait;
-        
+
+        private void OnDestroy()
+        {
+            spawnedEnemy.RemoveAllListeners();
+            roomStarted.RemoveAllListeners();
+        }
+
         private void Awake()
         {
             SpawnPoint[] spawnPoints = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.InstanceID);
@@ -63,11 +73,20 @@ namespace Rooms
         
         private void Start()
         {
-            if(enemyPrefab == null) return;
+            GameController gameController = GameObject.FindFirstObjectByType<GameController>();
+
+            if (gameController)
+            {
+                roomStarted.AddListener(gameController.OnRoomStart);
+                spawnedEnemy.AddListener(gameController.OnEnemySpawned);
+            }
             
+            if(enemyPrefab == null) return;
+
             foreach (var spawn in _startPoints)
             {
                 spawn.SpawnObject(enemyPrefab);
+                spawnedEnemy.Invoke();
             }
             
             if(_startPoints.Length > 0)
@@ -75,6 +94,8 @@ namespace Rooms
             
             _coroutineWait = new WaitForSeconds(spawnRate);
             StartCoroutine(SpawnEnemies());
+            
+            roomStarted.Invoke(enemiesToSpawnInRoom);
         }
 
         private void OnDisable()
@@ -100,6 +121,7 @@ namespace Rooms
                 {
                     SpawnPoint door = _validDoors[startDoor];
                     door.SpawnObject(enemyPrefab);
+                    spawnedEnemy.Invoke();
                     _spawnCount++;
                     startDoor++;
                     if (startDoor == _validDoors.Length)
