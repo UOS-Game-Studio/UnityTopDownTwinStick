@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -47,7 +48,7 @@ namespace PlayerCombat
 
         private void IA_FireActionOnStarted(InputAction.CallbackContext obj)
         {
-            if (Time.time < _lastFire + stats.fireDelay && _canFire)
+            if (Time.time < _lastFire + stats.fireDelay && !_canFire)
                 _canFire = true;
             
             // if we're still waiting for a previous shot to cool down, we can't fire again
@@ -55,6 +56,12 @@ namespace PlayerCombat
             
             _isFiring = true;
             StartCoroutine(FiringRoutine());
+        }
+
+        private void OnDisable()
+        {
+            _canFire = false;
+            StopCoroutine(FiringRoutine());
         }
 
         private IEnumerator FiringRoutine()
