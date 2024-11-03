@@ -28,8 +28,7 @@ namespace PlayerCombat
 
         private void OnDestroy()
         {
-            if(_pool != null)
-                _pool.Clear();
+            _pool?.Clear();
         }
 
         private void OnDestroyPoolObject(PlayerProjectile obj)

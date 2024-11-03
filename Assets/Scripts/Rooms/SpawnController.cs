@@ -9,41 +9,53 @@ namespace Rooms
 {
     public class SpawnController : MonoBehaviour
     {
+        [SerializeField] public AnimationCurve spawnCurve;
         [SerializeField] private GameObject enemyPrefab;
-        private SpawnPoint[] _startPoints;
-        private SpawnPoint[] _validDoors;
-        private SpawnPoint[] _spawnPoints;
-        private int _spawnCount = 0;
-        public AnimationCurve spawnCurve;
         [SerializeField] private int enemiesToSpawnInRoom;
         [SerializeField] private int enemiesInRoomAtStart;
         [SerializeField] private float spawnRate = 2.0f;
-        private WaitForSeconds _coroutineWait;
         
+        private SpawnPoint[] _startPoints;
+        private SpawnPoint[] _validDoors;
+        private int _spawnCount = 0;
+        
+        private WaitForSeconds _coroutineWait;
         
         private void Awake()
         {
-            _spawnPoints = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.InstanceID);
+            SpawnPoint[] spawnPoints = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.InstanceID);
             
-            Debug.Assert(_spawnPoints.Length > 0, "No SpawnPoints found in room prefab.");
+            Debug.Assert(spawnPoints.Length > 0, "No SpawnPoints found in room prefab.");
+
+            if (spawnPoints.Length == 0)
+            {
+                enabled = false;
+                return;
+            }
             
-            if (_spawnPoints.Length < enemiesInRoomAtStart) enemiesInRoomAtStart = _spawnPoints.Length;
+            if (spawnPoints.Length < enemiesInRoomAtStart) enemiesInRoomAtStart = spawnPoints.Length;
             
             /*
              * This uses LINQ methods to find the spawn points flagged as starting spawns
              * sorted by their unique ID and then only use the number of spawns set in enemiesInRoomAtStart
              * https://learn.microsoft.com/en-us/dotnet/csharp/linq/standard-query-operators/
              */
-            _startPoints = _spawnPoints.Where(point => point.IsStartingSpawn)
+            _startPoints = spawnPoints.Where(point => point.IsStartingSpawn)
                 .OrderByDescending(point => point.ID)
                 .Take(enemiesInRoomAtStart)
                 .ToArray();
             
             // find all the door spawn points to use during play
-            _validDoors = _spawnPoints.Where(point => point.IsStartingSpawn == false)
+            // first find all the spawn points not flagged as "starting spawns"
+            // from that list, find all doors that are not the door the PC entered from.
+            _validDoors = spawnPoints.Where(point => point.IsStartingSpawn == false)
                 .Where(point => point.GetComponent<RoomDoor>().IsSpawnDoor == false)
                 .ToArray();
 
+            // just in case we have no doors (for some reason?!) - we'll still spawn monsters
+            if (_validDoors.Length == 0)
+                _validDoors = _startPoints;
+            
             // adjust the curve keys to adjust for the maximum number of enemies to spawn
             spawnCurve.MoveKey(2, new Keyframe(enemiesToSpawnInRoom, 0.0f));
             spawnCurve.MoveKey(1, new Keyframe(enemiesToSpawnInRoom / 2.0f, 3.0f));
@@ -79,10 +91,9 @@ namespace Rooms
                 if (_spawnCount >= enemiesToSpawnInRoom) break;
 
                 // the animation curve gives us a float value based on the "time" we pass
-                // in to evaluate; here our time is actually how many enemies have already spawned
-                // the number we get back is how many enemies we should spawn.
+                // in to evaluate; here our time is actually how many enemies have already spawned.
+                // The number we get back is how many enemies should spawn.
                 int numberToSpawn = (int)Mathf.Ceil(spawnCurve.Evaluate(_spawnCount));
-                Debug.Log("number of enemies to spawn: " + numberToSpawn);
                 int startDoor = Random.Range(0, _validDoors.Length);
 
                 for (int i = 0; i < numberToSpawn; i++)
