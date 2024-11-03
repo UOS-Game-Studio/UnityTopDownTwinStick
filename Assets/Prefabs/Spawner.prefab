@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gizmoMesh: {fileID: 4300002, guid: 0045ffb477e043a46950af7e617beb06, type: 3}
+  startingSpawn: 1
