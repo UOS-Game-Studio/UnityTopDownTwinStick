@@ -64,6 +64,11 @@ namespace PlayerCombat
             StopCoroutine(FiringRoutine());
         }
 
+        public float GetCurrentDamage()
+        {
+            return stats.baseDamage;
+        }
+        
         private IEnumerator FiringRoutine()
         {
             while (_isFiring)
@@ -72,7 +77,7 @@ namespace PlayerCombat
                 // and set it moving
                 PlayerProjectile projectileObject = _projectilePool.Pool.Get();
                 projectileObject.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
-                projectileObject.OnFire(transform.forward);
+                projectileObject.OnFire(transform.forward, GetCurrentDamage());
                 _lastFire = Time.time;
                 yield return _fireDelay;
             }
