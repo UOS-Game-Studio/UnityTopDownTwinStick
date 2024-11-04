@@ -26,7 +26,6 @@ public class GameController : MonoBehaviour
     {
         yield return _startWaitTime;
         
-        Debug.Log("Firing onRoomBegin Event");
         onRoomBegin.Invoke();
     }
     
@@ -50,10 +49,11 @@ public class GameController : MonoBehaviour
             _livingEnemies--;
             _killedEnemies++;
 
-            if (_maxEnemies == _killedEnemies)
+            if (_killedEnemies >= _maxEnemies)
             {
                 Debug.Log("Room complete");
                 onRoomComplete.Invoke();
+                return;
             }
             
         }
