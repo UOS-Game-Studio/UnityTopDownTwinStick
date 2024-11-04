@@ -28,7 +28,7 @@ namespace Common
             if (currentHealth > 0.0f) return;
             
             onDeath.Invoke(this);
-            Destroy(gameObject, 0.1f); // could handle this elsewhere too, monsters could be pooled and this stops that.
+            Destroy(gameObject, 0.1f); // TODO: strip this out to allow whatever handles onDeath to deal with this.
         }
 
         private void OnDestroy()
