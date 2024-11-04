@@ -27,7 +27,7 @@ namespace Player
             anim = gameObject.GetComponentInChildren<Animator>();
             characterRef = gameObject.transform.GetChild(0).gameObject;
             _mainCamera = Camera.main;
-            _characterTransform = characterRef.transform;
+            _characterTransform = transform;
         }
 
         public void Update()
