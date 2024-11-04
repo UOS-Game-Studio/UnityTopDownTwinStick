@@ -11,6 +11,14 @@ namespace UI
         Music
     }
     
+    /*
+     * This is a restrictive class as I've tightly coupled it to the type of slider it represents.
+     * That's fine for this particular implementation, but if we had more sliders that used it, we would
+     * need to find a cleaner way of doing this.
+     *
+     * Fundamentally, this is only here as a connector between SettingsControl and the actual Slider object
+     * if we didn't need the slider to be updated based on saved values, we wouldn't need this.
+    */
     public class SliderValue : MonoBehaviour
     {
         [SerializeField] private Slider slider;
@@ -36,6 +44,11 @@ namespace UI
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void OnDestroy()
+        {
+            onValueChanged.RemoveAllListeners();
         }
 
         public void OnSliderValueChanged()

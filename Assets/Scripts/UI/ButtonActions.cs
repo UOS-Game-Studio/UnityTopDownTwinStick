@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 namespace UI
 {
+    // This class is a bit of a catch-all thing, if our main menu
+    // had more elements, we should probably break this up into smaller logical chunks.
     public class ButtonActions : MonoBehaviour
     {
         [SerializeField] private CanvasGroup mainCanvas;
@@ -11,9 +13,11 @@ namespace UI
         
         public void OnPlayClicked()
         {
-            // could be async, then we show a loading "screen" until the loaded event fires.
-            // Rather than straight loading the scene, we might also trigger an animation of the
-            // PC heading into the door and then do the load.
+            /*
+             * could be LoadSceneAsync, then we show a loading "screen" until the loaded event fires.
+             * Rather than straight loading the scene, we could also trigger an animation of the
+             * PC heading into the door and use that as a loading thing.
+             */
             SceneManager.LoadScene("Scenes/Game");
         }
 
