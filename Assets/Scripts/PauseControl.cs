@@ -48,7 +48,7 @@ public class PauseControl : MonoBehaviour
         _pauseAction.performed -= IA_ActionPausePerformed;
     }
 
-    public void OnPauseBackPressed()
+    public void OnPauseToggle()
     {
         PerformPause();
     }

@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnTransform: {fileID: 4627542041508179788}
-  doorDirection: 0
+  doorDirection: 1
   spawnDoor: 0
   lockedMesh: {fileID: 4300004, guid: 19e0112a50b7fe743b90ae1524a8acdf, type: 3}
   openMesh: {fileID: 4300000, guid: db8bc3d166184ac4d85181169931b8e5, type: 3}

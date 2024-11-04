@@ -73,6 +73,7 @@ namespace Rooms
         
         private void Start()
         {
+            // we could do this same setup in the Editor rather than via code.
             GameController gameController = GameObject.FindFirstObjectByType<GameController>();
 
             if (gameController)
@@ -80,8 +81,12 @@ namespace Rooms
                 roomStarted.AddListener(gameController.OnRoomStart);
                 spawnedEnemy.AddListener(gameController.OnEnemySpawned);
             }
-            
-            if(enemyPrefab == null) return;
+
+            if (enemyPrefab == null)
+            {
+                Debug.LogError("no prefab set in SpawnController");
+                return;
+            }
 
             foreach (var spawn in _startPoints)
             {
@@ -93,11 +98,16 @@ namespace Rooms
                 _spawnCount = enemiesInRoomAtStart;
             
             _coroutineWait = new WaitForSeconds(spawnRate);
-            StartCoroutine(SpawnEnemies());
             
             roomStarted.Invoke(enemiesToSpawnInRoom);
         }
 
+        public void StartSpawning()
+        {
+            Debug.Log("Starting SpawnEnemies coroutine");
+            StartCoroutine(SpawnEnemies());
+        }
+        
         private void OnDisable()
         {
             StopCoroutine(SpawnEnemies());
