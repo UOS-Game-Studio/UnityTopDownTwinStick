@@ -21,6 +21,15 @@ namespace UI
             SceneManager.LoadScene("Scenes/Game");
         }
 
+        public void OnMenuClicked()
+        {
+            // for now, when we return to the menu scene, we'll destroy any current SettingsControl object
+            SettingsControl settings = FindFirstObjectByType<SettingsControl>();
+            Destroy(settings.gameObject);
+            
+            SceneManager.LoadScene("Scenes/Menu");
+        }
+        
         private void EnableCanvas(CanvasGroup canvasGroup)
         {
             canvasGroup.alpha = 1.0f;

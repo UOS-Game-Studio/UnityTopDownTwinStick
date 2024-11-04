@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,8 +12,11 @@ namespace UI
     public class DamageGauge : MonoBehaviour
     {
         Slider damageGauge;
-        float damageReduction;
+        float damageReduction = -1f;
 
+        private const float MinSliderValue = 0.0f;
+        private const float MaxSliderValue = 100.0f;
+        
         public delegate void OnMoveDashShoot();
 
         public static event OnMoveDashShoot onMoveDashShoot;
@@ -39,7 +43,8 @@ namespace UI
         void Start()
         {
             damageGauge = GetComponent<Slider>();
-            damageReduction = -1f;
+            damageGauge.maxValue = MaxSliderValue;
+            damageGauge.minValue = MinSliderValue;
             DebugStates(false); // remove later
             onMoveDashShoot += IncreaseDamageBasedOnModifiers;
             onMoveDashShoot += DecreaseDamageIfApplicable;
@@ -135,7 +140,7 @@ namespace UI
 
         void CheckIfOverheated()
         {
-            if (damageGauge.value == 100)
+            if (Math.Abs(damageGauge.value - 100) < 0.01f)
             {
                 damageGauge.value = 0;
             }
