@@ -2,7 +2,7 @@
 
 namespace PlayerCombat
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(fileName = "WeaponStats", menuName = "Scriptable Objects/WeaponStats")]
     public class WeaponStats : ScriptableObject
     {
         [Range(0.01f, 5.0f)]
