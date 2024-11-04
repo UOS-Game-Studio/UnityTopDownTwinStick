@@ -30,13 +30,23 @@ public class SettingsControl : MonoBehaviour
     // convert the volume range (0 - 100) into a decibel range (-80 - 0).
     public float SfxDb => math.remap(0.0f, 100.0f, -80.0f, 0.0f, _sfxVolume);
     public float MusicDb => math.remap(0.0f, 100.0f, -80.0f, 0.0f, _musicVolume);
+
+    private static SettingsControl _instance;
     
     private void Awake()
     {
-        // SettingsControl should exist for the entire run of the game.
-        // we can either destroy it at game over when the player chooses to return to the menu
-        // or we can make it a functional singleton... decisions!
-        DontDestroyOnLoad(this.gameObject);
+        // SettingsControl should be created in the Menu scene and then exist through to the end of the game
+        // however, for testing, we have other instances in other scenes, so we're handling that
+        // by using a basic form of the Singleton pattern.
+        if (!_instance)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
 
         if (PlayerPrefs.HasKey(SfxKey))
         {

@@ -58,6 +58,12 @@ namespace PlayerCombat
             StartCoroutine(FiringRoutine());
         }
 
+        private void OnDestroy()
+        {
+            _fireAction.started -= IA_FireActionOnStarted;
+            _fireAction.canceled -= IA_FireActionOnCanceled;
+        }
+
         private void OnDisable()
         {
             _canFire = false;
