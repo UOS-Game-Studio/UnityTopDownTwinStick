@@ -72,6 +72,8 @@ namespace Player
         // Aim follows the mouse cursor
         public void OnAim(InputAction.CallbackContext context)
         {
+            if (Time.timeScale == 0) return;
+            
             Vector2 input = context.ReadValue<Vector2>();
             Vector3 worldMouse = _mainCamera.ScreenToWorldPoint(new Vector3(input.x, input.y, 10.0f));
             Vector3 worldMouseNoY = new Vector3(worldMouse.x, _characterTransform.position.y, worldMouse.z);
