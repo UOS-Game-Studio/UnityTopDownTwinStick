@@ -1,19 +1,50 @@
+using System;
+using Common;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace AI
 {
     public class EnemyCore : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
+        [SerializeField] private EnemyStatsSO statsData;
+        private Health _health;
+        private BaseAttack _attack;
+        private NavMeshAgent _navMeshAgent;
 
+        private Animator _animator;
+        
+        private void Awake()
+        {
+            _health = GetComponent<Health>();
+            _attack = GetComponent<BaseAttack>();
+            _animator = GetComponent<Animator>();
+            
+            // not sure how this will work with root motion animations?
+            _navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void Start()
         {
+            _health.SetMaxHealth(statsData.maxHealth);
+            _health.onTakeDamage.AddListener(RespondToDamage);
+            _health.onDeath.AddListener(OnDeath);
+            
+            _attack.SetDamage(statsData.attackDamage);
+            _attack.SetWindup(statsData.attackWindupTime);
+            _attack.SetRange(statsData.attackRange);
+            
+            // probably setup the FSM here and pass in the BaseAttack reference to it?
+        }
 
+        public void RespondToDamage()
+        {
+            Debug.Log("Oh no, " + name + " took damage!");
+        }
+
+        public void OnDeath(Health characterHealth)
+        {
+            Debug.Log("Oh no, " + name + " has died!");
         }
     }
 }

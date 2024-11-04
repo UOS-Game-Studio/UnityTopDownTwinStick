@@ -36,6 +36,8 @@ namespace Rooms
             
             _spawnComponent.SetSpawnPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
 
+            if(spawnDoor) MakeSpawnDoor();
+            
             GameController gameController = GameObject.FindFirstObjectByType<GameController>();
             gameController.onRoomComplete.AddListener(Unlock);
         }

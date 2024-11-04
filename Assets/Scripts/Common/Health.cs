@@ -1,39 +1,46 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Common
 {
     public class Health : MonoBehaviour
     {
-        [SerializeField] private float maxHealth = 1.0f;
-        private readonly UnityEvent<Health> _onDeath = new UnityEvent<Health>();
+        [SerializeField] private float currentHealth = 1.0f;
+        private float _maxHealth;
+        public UnityEvent<Health> onDeath = new UnityEvent<Health>();
         public UnityEvent onTakeDamage = new UnityEvent();
+
+        public void SetMaxHealth(float newMax)
+        {
+            _maxHealth = newMax;
+        }
         
         public void TakeDamage(float damage)
         {
-            maxHealth = Mathf.Min(0.0f, maxHealth - damage);
+            currentHealth = Mathf.Min(0.0f, currentHealth - damage);
 
             // trigger an animation or similar to indicate the hit
             // but do that elsewhere!
             onTakeDamage.Invoke();
             
-            if (maxHealth > 0.0f) return;
+            if (currentHealth > 0.0f) return;
             
-            _onDeath.Invoke(this);
+            onDeath.Invoke(this);
             Destroy(gameObject, 0.1f); // could handle this elsewhere too, monsters could be pooled and this stops that.
         }
 
         private void OnDestroy()
         {
-            _onDeath.RemoveAllListeners();
+            onDeath.RemoveAllListeners();
         }
         
         void Start()
         {
             GameController gameController = GameObject.FindAnyObjectByType<GameController>();
 
-            _onDeath.AddListener(gameController.OnCharacterKilled);
+            onDeath.AddListener(gameController.OnCharacterKilled);
         }
     }
 
