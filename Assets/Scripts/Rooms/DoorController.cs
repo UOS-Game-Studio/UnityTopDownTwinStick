@@ -1,0 +1,52 @@
+using System;
+using UnityEngine;
+
+namespace Rooms
+{
+    // Door Controller is used by RoomManager to get the exit door used by the player
+    // and to set the entry door when a room is instantiated.
+    public class DoorController : MonoBehaviour
+    {
+        public RoomDoor[] doors;
+
+        public DoorDirection GetExitDirection()
+        {
+            foreach (RoomDoor door in doors)
+            {
+                if (door.IsExitDoor) return door.direction;
+            }
+
+            return DoorDirection.South;
+        }
+
+        public DoorDirection entryDir;
+        
+        // is this function doing too much?
+        // Should it be separated into SetEntryDirection and GetRoomPlayerSpawn?
+        public Transform SetEntryPoint(DoorDirection exitDir)
+        {
+            entryDir = exitDir switch
+            {
+                DoorDirection.North => DoorDirection.South,
+                DoorDirection.South => DoorDirection.North,
+                DoorDirection.East => DoorDirection.West,
+                DoorDirection.West => DoorDirection.East,
+                _ => throw new ArgumentOutOfRangeException(nameof(exitDir), exitDir, null)
+            };
+
+            Debug.Log("Set entry direction, finding spawn door for entry dir " + entryDir);
+            
+            foreach (RoomDoor door in doors)
+            {
+                Debug.Log(door.direction);
+                if (door.direction != entryDir) continue;
+                
+                door.MakeSpawnDoor();
+                return door.GetSpawnTransform();
+            }
+
+            // if we somehow haven't found a valid door, we just return the transform of the rooms parent object.
+            return transform;
+        }
+    }
+}

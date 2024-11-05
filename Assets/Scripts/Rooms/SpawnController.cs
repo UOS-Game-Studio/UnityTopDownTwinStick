@@ -29,6 +29,7 @@ namespace Rooms
         {
             spawnedEnemy.RemoveAllListeners();
             roomStarted.RemoveAllListeners();
+            StopCoroutine(SpawnEnemies());
         }
 
         private void Awake()
@@ -48,6 +49,7 @@ namespace Rooms
             /*
              * This uses LINQ methods to find the spawn points flagged as starting spawns
              * sorted by their unique ID and then only use the number of spawns set in enemiesInRoomAtStart
+             * each spawn assigns itself a random ID, so we get a shuffle effect doing this.
              * https://learn.microsoft.com/en-us/dotnet/csharp/linq/standard-query-operators/
              */
             _startPoints = spawnPoints.Where(point => point.IsStartingSpawn)
@@ -58,6 +60,7 @@ namespace Rooms
             // find all the door spawn points to use during play
             // first find all the spawn points not flagged as "starting spawns"
             // from that list, find all doors that are not the door the PC entered from.
+            // this is making the assumption that a spawn point with a false starting spawn is attached to a door!
             _validDoors = spawnPoints.Where(point => point.IsStartingSpawn == false)
                 .Where(point => point.GetComponent<RoomDoor>().IsSpawnDoor == false)
                 .ToArray();
@@ -70,10 +73,15 @@ namespace Rooms
             spawnCurve.MoveKey(2, new Keyframe(enemiesToSpawnInRoom, 0.0f));
             spawnCurve.MoveKey(1, new Keyframe(enemiesToSpawnInRoom / 2.0f, 3.0f));
         }
-        
+
         private void Start()
         {
-            // we could do this same setup in the Editor rather than via code.
+            _coroutineWait = new WaitForSeconds(spawnRate);
+        }
+
+        public void StartRoom()
+        {
+            // because Rooms are instantiated from prefabs, we need to do this in code.
             GameController gameController = GameObject.FindFirstObjectByType<GameController>();
 
             if (gameController)
@@ -90,27 +98,19 @@ namespace Rooms
 
             foreach (var spawn in _startPoints)
             {
-                spawn.SpawnObject(enemyPrefab);
+                spawn.SpawnObject(enemyPrefab, transform);
                 spawnedEnemy.Invoke();
             }
             
             if(_startPoints.Length > 0)
                 _spawnCount = enemiesInRoomAtStart;
-            
-            _coroutineWait = new WaitForSeconds(spawnRate);
-            
+
             roomStarted.Invoke(enemiesToSpawnInRoom);
         }
 
         public void StartSpawning()
         {
-            Debug.Log("Starting SpawnEnemies coroutine");
             StartCoroutine(SpawnEnemies());
-        }
-        
-        private void OnDisable()
-        {
-            StopCoroutine(SpawnEnemies());
         }
 
         private IEnumerator SpawnEnemies()
@@ -130,7 +130,7 @@ namespace Rooms
                 for (int i = 0; i < numberToSpawn; i++)
                 {
                     SpawnPoint door = _validDoors[startDoor];
-                    door.SpawnObject(enemyPrefab);
+                    door.SpawnObject(enemyPrefab, transform);
                     spawnedEnemy.Invoke();
                     _spawnCount++;
                     startDoor++;

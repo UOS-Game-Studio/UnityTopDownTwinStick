@@ -48,11 +48,11 @@ namespace Rooms
             Gizmos.DrawWireMesh(gizmoMesh, transform.position, transform.rotation);
         }
 
-        public void SpawnObject(GameObject prefab)
+        public void SpawnObject(GameObject prefab, Transform parent)
         {
             Vector3 spawnPosition =
                 new Vector3(_spawnPosition.x, _spawnPosition.y + YOffset, _spawnPosition.z);
-            Instantiate(prefab, spawnPosition, _spawnRotation);
+            Instantiate(prefab, spawnPosition, _spawnRotation, parent);
         }
     }
 }
