@@ -37,12 +37,12 @@ namespace AI
 
         public void RespondToDamage()
         {
-            Debug.Log("Oh no, " + name + " took damage!");
+            //Debug.Log("Oh no, " + name + " took damage!");
         }
 
         public void OnDeath(Health characterHealth)
         {
-            Debug.Log("Oh no, " + name + " has died!");
+            //Debug.Log("Oh no, " + name + " has died!");
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class GameController : MonoBehaviour
 {
-    private int _livingEnemies;
+    private int _spawnedEnemies;
     private int _maxEnemies;
     private int _killedEnemies;
 
@@ -15,30 +15,37 @@ public class GameController : MonoBehaviour
     public UnityEvent onRoomComplete = new UnityEvent();
     public UnityEvent onGameOver = new UnityEvent();
     public UnityEvent onRoomBegin = new UnityEvent();
-
+    public UnityEvent onRoomExit = new UnityEvent();
+    
+    
     private void Start()
     {
         _startWaitTime = new WaitForSeconds(roomStartWaitTime);
-        StartCoroutine(StartRoom());
     }
 
     private IEnumerator StartRoom()
     {
         yield return _startWaitTime;
-        
         onRoomBegin.Invoke();
     }
     
     public void OnRoomStart(int maxEnemies)
     {
+        _killedEnemies = 0;
         _maxEnemies = maxEnemies;
+        StartCoroutine(StartRoom());
     }
     
     public void OnEnemySpawned()
     {
-        _livingEnemies++;
+        _spawnedEnemies++;
     }
 
+    public void ExitDoorTriggered()
+    {
+        onRoomExit.Invoke();
+    }
+    
     public void OnCharacterKilled(Common.Health charHealth)
     {
         bool isEnemy = charHealth.GetComponent<AI.EnemyCore>() != null;
@@ -46,21 +53,19 @@ public class GameController : MonoBehaviour
 
         if (isEnemy)
         {
-            _livingEnemies--;
             _killedEnemies++;
 
-            if (_killedEnemies >= _maxEnemies)
+            // due to the spawn curve, we sometimes get an extra enemy or two, so we have to account for that here!
+            if (_killedEnemies >= _maxEnemies && _killedEnemies >= _spawnedEnemies)
             {
-                Debug.Log("Room complete");
+                _spawnedEnemies = 0;
                 onRoomComplete.Invoke();
                 return;
             }
-            
         }
 
         if (isPlayer)
         {
-            Debug.Log("Handle the game over state here");
             onGameOver.Invoke();
         }
     }

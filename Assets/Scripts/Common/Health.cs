@@ -11,6 +11,8 @@ namespace Common
         private float _maxHealth;
         public UnityEvent<Health> onDeath = new UnityEvent<Health>();
         public UnityEvent onTakeDamage = new UnityEvent();
+
+        private bool _isDead;
         
         public void Initialize(float newMax)
         {
@@ -20,6 +22,8 @@ namespace Common
         
         public void TakeDamage(float damage)
         {
+            if (_isDead) return;
+            
             _currentHealth = Mathf.Min(0.0f, _currentHealth - damage);
 
             // trigger an animation or similar to indicate the hit
@@ -29,6 +33,7 @@ namespace Common
             if (_currentHealth > 0.0f) return;
             
             onDeath.Invoke(this);
+            _isDead = true;
             Destroy(gameObject, 0.1f); // TODO: strip this out to allow whatever handles onDeath to deal with this.
         }
 
