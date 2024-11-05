@@ -72,7 +72,7 @@ namespace PlayerCombat
 
         public float GetCurrentDamage()
         {
-            return stats.baseDamage;
+            return stats.baseDamage + stats.adjustedValue;
         }
         
         private IEnumerator FiringRoutine()

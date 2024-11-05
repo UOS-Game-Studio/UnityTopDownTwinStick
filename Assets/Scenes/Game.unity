@@ -2192,6 +2192,90 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 124713714}
     m_Modifications:
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: weaponStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 3899e84c0e0ebf647b4d9d906880de92, type: 2}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[0].time
+      value: 0.08306885
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[1].time
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[2].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[2].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[2].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264898875637699409, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
+      propertyPath: adjustedDamageCurve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 2520663214700569786, guid: 14fc403ff02da1341b4242cb2261ff23, type: 3}
       propertyPath: m_Name
       value: HUD
