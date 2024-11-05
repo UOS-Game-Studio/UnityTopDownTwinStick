@@ -15,8 +15,8 @@ public class S_RandomAnimation : StateMachineBehaviour
             int index = UnityEngine.Random.Range(0, clipNames.Length);
             string stateName = clipNames[index].name;
         
-            Debug.Log("--------------------------");
-            Debug.Log(stateName);
+            //Debug.Log("--------------------------");
+            //Debug.Log(stateName);
             //Debug.Break();
             //animator.Play(stateName, layerIndex);
             animator.CrossFade(stateName, .1f, layerIndex);
@@ -32,7 +32,7 @@ public class S_RandomAnimation : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("on state exit");
+        //Debug.Log("on state exit");
         //Debug.Log(stateInfo.shortNameHash);
         canPickRandomAnimation = true;
         
@@ -53,7 +53,7 @@ public class S_RandomAnimation : StateMachineBehaviour
 
     public override void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
     {
-        Debug.Log("On State macine enter");
+        //Debug.Log("On State macine enter");
     }
 
 }
