@@ -126,11 +126,11 @@ namespace UI
         {
             if(_startedMoving)
             {
-                AdjustDamageGaugeValue(weaponStats.baseDamage + weaponStats.moveDamageModifier);
+                AdjustDamageGaugeValue(weaponStats.moveDamageModifier);
             }
             if(_startedShooting)
             {
-                AdjustDamageGaugeValue(weaponStats.baseDamage + weaponStats.shootDamageModifier);
+                AdjustDamageGaugeValue(weaponStats.shootDamageModifier);
             }
         }
 
