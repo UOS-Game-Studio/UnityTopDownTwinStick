@@ -26,14 +26,12 @@ namespace AI
 
         private void Start()
         {
-            _health.SetMaxHealth(statsData.maxHealth);
+            _health.Initialize(statsData.maxHealth);
             _health.onTakeDamage.AddListener(RespondToDamage);
             _health.onDeath.AddListener(OnDeath);
             
-            _attack.SetDamage(statsData.attackDamage);
-            _attack.SetWindup(statsData.attackWindupTime);
-            _attack.SetRange(statsData.attackRange);
-            
+            _attack.Initialize(statsData.attackRange, statsData.attackDamage, statsData.attackWindupTime);
+
             // probably setup the FSM here and pass in the BaseAttack reference to it?
         }
 

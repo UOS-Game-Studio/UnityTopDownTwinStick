@@ -6,7 +6,7 @@ namespace Rooms
 {
     public class SpawnPoint : MonoBehaviour
     {
-        [SerializeField] private Mesh gizmoMesh;
+        public Mesh gizmoMesh;
         [SerializeField] private bool startingSpawn = true;
         private Vector3 _spawnPosition;
         private Quaternion _spawnRotation;

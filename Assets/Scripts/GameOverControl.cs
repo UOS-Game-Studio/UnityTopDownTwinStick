@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 public class GameOverControl : MonoBehaviour
 {
-    [SerializeField] private GameObject hudCanvas;
-    [SerializeField] private GameObject gameOverCanvas;
+    public GameObject hudCanvas;
+    public GameObject gameOverCanvas;
 
 
     public void OnGameOver()

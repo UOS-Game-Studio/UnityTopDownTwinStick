@@ -13,19 +13,17 @@ namespace Rooms
     }
     public class RoomDoor : MonoBehaviour
     {
-        [SerializeField] private Transform spawnTransform;
-        [SerializeField] private DoorDirection doorDirection;
-        [SerializeField] private bool spawnDoor = false;
-        [SerializeField] private Mesh lockedMesh;
-        [SerializeField] private Mesh openMesh;
+        private Transform _spawnTransform;
+        public DoorDirection doorDirection;
+        private bool _spawnDoor;
+        public Mesh lockedMesh;
+        public Mesh openMesh;
         
         private SpawnPoint _spawnComponent;
         private bool _isLocked = true;
-
-        //[SerializeField] private Mesh closedMesh;
         
         private MeshFilter _meshFilter;
-        public bool IsSpawnDoor => spawnDoor;
+        public bool IsSpawnDoor => _spawnDoor;
 
         private void Start()
         {
@@ -33,10 +31,12 @@ namespace Rooms
             _meshFilter = GetComponent<MeshFilter>();
             Debug.Assert(_spawnComponent != null);
             Debug.Assert(_meshFilter != null);
-            
-            _spawnComponent.SetSpawnPositionAndRotation(spawnTransform.position, spawnTransform.rotation);
 
-            if(spawnDoor) MakeSpawnDoor();
+            _spawnTransform = transform.Find("SpawnPoint");
+            
+            _spawnComponent.SetSpawnPositionAndRotation(_spawnTransform.position, _spawnTransform.rotation);
+
+            if(_spawnDoor) MakeSpawnDoor();
             
             GameController gameController = GameObject.FindFirstObjectByType<GameController>();
             gameController.onRoomComplete.AddListener(Unlock);
@@ -54,16 +54,16 @@ namespace Rooms
 
         public void MakeSpawnDoor()
         {
-            spawnDoor = true;
+            _spawnDoor = true;
             
             // spawn doors remain closed as the player cannot go "back" on themselves
             // so we show a "locked mesh".
             _meshFilter.mesh = lockedMesh;
         }
         
-        public void Unlock()
+        private void Unlock()
         {
-            if (spawnDoor) return;
+            if (_spawnDoor) return;
             
             _isLocked = false;
             _meshFilter.mesh = openMesh;

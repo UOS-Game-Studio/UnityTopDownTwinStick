@@ -6,7 +6,7 @@ namespace Audio
 {
     public class MixerControl : MonoBehaviour
     {
-        [SerializeField] private AudioMixer audioMixer;
+        public AudioMixer audioMixer;
         private AudioSource _audioSource;
         private SettingsControl _settings;
 

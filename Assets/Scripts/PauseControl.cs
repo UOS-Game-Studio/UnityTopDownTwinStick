@@ -9,8 +9,8 @@ using UnityEngine.InputSystem;
 // as such, we'll want to do something about changing that at some point.
 public class PauseControl : MonoBehaviour
 {
-    [SerializeField] private GameObject hudCanvas;
-    [SerializeField] private GameObject pauseMenu;
+    public GameObject hudCanvas;
+    public GameObject pauseMenu;
 
     private bool _isPaused;
     private InputAction _pauseAction;

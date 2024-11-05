@@ -10,10 +10,10 @@ namespace Rooms
 {
     public class SpawnController : MonoBehaviour
     {
-        [SerializeField] public AnimationCurve spawnCurve;
-        [SerializeField] private GameObject enemyPrefab;
-        [SerializeField] private int enemiesToSpawnInRoom;
-        [SerializeField] private int enemiesInRoomAtStart;
+        public AnimationCurve spawnCurve;
+        public GameObject enemyPrefab;
+        public int enemiesToSpawnInRoom;
+        public int enemiesInRoomAtStart;
         [SerializeField] private float spawnRate = 2.0f;
 
         public UnityEvent spawnedEnemy = new UnityEvent();
