@@ -1761,7 +1761,8 @@ GameObject:
   - component: {fileID: 7482666922438476754}
   - component: {fileID: 4757637470323199267}
   - component: {fileID: 6855706359826740052}
-  - component: {fileID: 3857181792234727000}
+  - component: {fileID: 1664890936560500085}
+  - component: {fileID: 740143291145037417}
   - component: {fileID: 4998733216479142949}
   - component: {fileID: 2434095480336666595}
   m_Layer: 6
@@ -1838,8 +1839,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3857181792234727000}
-        m_TargetAssemblyTypeName: S_PlayerMovment, Assembly-CSharp
+      - m_Target: {fileID: 1664890936560500085}
+        m_TargetAssemblyTypeName: Player.S_PlayerMovment, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -1854,8 +1855,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3857181792234727000}
-        m_TargetAssemblyTypeName: S_PlayerMovment, Assembly-CSharp
+      - m_Target: {fileID: 1664890936560500085}
+        m_TargetAssemblyTypeName: Player.S_PlayerMovment, Assembly-CSharp
         m_MethodName: OnRotate
         m_Mode: 0
         m_Arguments:
@@ -1878,8 +1879,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Interact[/Keyboard/e]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3857181792234727000}
-        m_TargetAssemblyTypeName: S_PlayerMovment, Assembly-CSharp
+      - m_Target: {fileID: 1664890936560500085}
+        m_TargetAssemblyTypeName: Player.S_PlayerMovment, Assembly-CSharp
         m_MethodName: OnRoll
         m_Mode: 0
         m_Arguments:
@@ -1934,8 +1935,8 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3857181792234727000}
-        m_TargetAssemblyTypeName: S_PlayerMovment, Assembly-CSharp
+      - m_Target: {fileID: 1664890936560500085}
+        m_TargetAssemblyTypeName: Player.S_PlayerMovment, Assembly-CSharp
         m_MethodName: OnAim
         m_Mode: 0
         m_Arguments:
@@ -1957,7 +1958,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3857181792234727000
+--- !u!114 &1664890936560500085
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1970,6 +1971,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimPointObject: {fileID: 0}
+--- !u!114 &740143291145037417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524938570072951933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267b27af339853746847161470f137a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!136 &4998733216479142949
 CapsuleCollider:
   m_ObjectHideFlags: 0
