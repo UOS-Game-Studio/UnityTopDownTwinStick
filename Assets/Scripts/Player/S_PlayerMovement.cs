@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.PlayerLoop;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace Player
 {
@@ -11,7 +9,6 @@ namespace Player
         //[SerializeField] private float speed = 1.0f;
         private Vector2 Velocity = new();
         private Animator anim;
-        private GameObject characterRef;
 
         public Transform aimPointObject;
 
@@ -28,7 +25,6 @@ namespace Player
         public void Start()
         {
             anim = gameObject.GetComponentInChildren<Animator>();
-            characterRef = gameObject.transform.GetChild(0).gameObject;
             _mainCamera = Camera.main;
             _characterTransform = transform;
         }
