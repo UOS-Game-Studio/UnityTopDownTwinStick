@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace AI
 {
+    /// <summary>
+    /// BaseAttack is the default attack class on our NPCs
+    /// it allows for a simple "melee" attack by ray casting out from a specific point to a fixed range.
+    /// the base stats are provided by EnemyCore through Initialize.
+    /// </summary>
     public class BaseAttack : MonoBehaviour
     {
         
@@ -28,6 +33,10 @@ namespace AI
             _windupWait = new WaitForSeconds(_windupTime);
         }
 
+        // This is the function we would call to start the attack cycle
+        // it would make sense in here to also trigger any suitable animations
+        // by using animation Events we could remove the need for the Coroutine here
+        // and just have the animation event trigger "DoAttack" itself when suitable.
         public void StartAttack()
         {
             // start the wind up.
@@ -38,6 +47,7 @@ namespace AI
         {
             yield return _windupWait;
 
+            // a Ray is an infinite line with a start point and direction.
             Ray attackRay = new Ray(_attackPoint.position, _attackPoint.forward);
             
             // this uses an inline declaration of rayHit, which is unique to arguments with the "out" keyword:

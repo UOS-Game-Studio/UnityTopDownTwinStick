@@ -4,8 +4,10 @@ using UnityEngine.SceneManagement;
 
 namespace UI
 {
-    // This class is a bit of a catch-all thing, if our main menu
-    // had more elements, we should probably break this up into smaller logical chunks.
+    /// <summary>
+    /// ButtonActions acts as a general purpose UI interaction handler
+    /// it offers a set of handlers for button events from the main menu and in the pause menu
+    /// </summary>
     public class ButtonActions : MonoBehaviour
     {
         [SerializeField] private CanvasGroup mainCanvas;
@@ -32,6 +34,7 @@ namespace UI
         
         private void EnableCanvas(CanvasGroup canvasGroup)
         {
+            // there's no neater way of toggling the status of a canvas group, sadly!
             canvasGroup.alpha = 1.0f;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;

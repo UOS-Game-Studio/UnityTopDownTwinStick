@@ -2,11 +2,11 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// The "easiest" pause is to just set Time.timescale to 0.
-// but that can cause us problems with all sorts of things in the background
-// as not all functions use it to drive themselves.
-
-// as such, we'll want to do something about changing that at some point.
+/// <summary>
+/// PauseControl handles when the player hits a key bound to the Pause action in the Action Map.
+/// The approach to pausing is not ideal; we set Time.timescale to 0 which works but causes issues
+/// things like UI animations will also stop, which we may not want to happen just because we've paused the game.
+/// </summary>
 public class PauseControl : MonoBehaviour
 {
     public GameObject hudCanvas;
@@ -48,6 +48,8 @@ public class PauseControl : MonoBehaviour
         _pauseAction.performed -= IA_ActionPausePerformed;
     }
 
+    // while most pausing takes place from the input interactions, we expose this to allow any other systems
+    // in the game to trigger a pause if needs be.
     public void OnPauseToggle()
     {
         PerformPause();

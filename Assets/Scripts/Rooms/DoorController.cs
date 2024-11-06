@@ -3,8 +3,10 @@ using UnityEngine;
 
 namespace Rooms
 {
-    // Door Controller is used by RoomManager to get the exit door used by the player
-    // and to set the entry door when a room is instantiated.
+    /// <summary>
+    /// Door Controller is used by RoomManager to get the exit door used by the player
+    /// and to set the entry door when a room is instantiated.
+    /// </summary>
     public class DoorController : MonoBehaviour
     {
         public RoomDoor[] doors;
@@ -21,7 +23,7 @@ namespace Rooms
 
         public DoorDirection entryDir;
         
-        // is this function doing too much?
+        // REVIEW: is this function doing too much?
         // Should it be separated into SetEntryDirection and GetRoomPlayerSpawn?
         public Transform SetEntryPoint(DoorDirection exitDir)
         {

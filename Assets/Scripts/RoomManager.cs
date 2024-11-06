@@ -5,9 +5,12 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-// RoomManager is responsible for instantiating and destroying instances of the room prefabs
-// it hooks into events from GameController to know when to trigger the swap
-// when a new room is instantiated, we need to know which door to flag as the entry point
+
+/// <summary>
+/// RoomManager is responsible for instantiating and destroying instances of the room prefabs
+/// it hooks into events from GameController to know when to trigger the swap
+/// when a new room is instantiated, we need to know which door to flag as the entry point
+/// </summary>
 public class RoomManager : MonoBehaviour
 {
     public GameObject[] roomPrefabs;
@@ -60,9 +63,6 @@ public class RoomManager : MonoBehaviour
 
         // instantiate it
         _currentRoom = Instantiate(prefab, Vector3.zero, quaternion.identity);
-
-        // as we can't instantly access elements from the new room, we have to wait a short period.
-        //StartCoroutine(SetupRoom());
         
         doorController = _currentRoom.GetComponent<DoorController>();
         Transform doorTransform = doorController.SetEntryPoint(_exitDoor);
@@ -74,12 +74,5 @@ public class RoomManager : MonoBehaviour
         _spawnController = _currentRoom.GetComponent<SpawnController>();
         
         _spawnController.StartRoom();
-    }
-
-    private IEnumerator SetupRoom()
-    {
-        yield return new WaitForFixedUpdate();
-        
-        
     }
 }

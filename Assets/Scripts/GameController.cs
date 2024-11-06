@@ -3,6 +3,15 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// GameController tracks our progress through the current room.
+/// It has a set of events that are invoked at specific points:
+/// Events:
+///     onRoomComplete - when all enemies are dead
+///     onGameOver - on PC death
+///     onRoomBegin - when a room has instantiated and is ready to spawn enemies
+///     onRoomExit - when the PC hits a door trigger
+/// </summary>
 public class GameController : MonoBehaviour
 {
     private int _spawnedEnemies;
@@ -16,8 +25,7 @@ public class GameController : MonoBehaviour
     public UnityEvent onGameOver = new UnityEvent();
     public UnityEvent onRoomBegin = new UnityEvent();
     public UnityEvent onRoomExit = new UnityEvent();
-    
-    
+
     private void Start()
     {
         _startWaitTime = new WaitForSeconds(roomStartWaitTime);
@@ -29,6 +37,7 @@ public class GameController : MonoBehaviour
         onRoomBegin.Invoke();
     }
     
+    // handler for the SpawnController.roomStarted event
     public void OnRoomStart(int maxEnemies)
     {
         _killedEnemies = 0;
@@ -36,20 +45,24 @@ public class GameController : MonoBehaviour
         StartCoroutine(StartRoom());
     }
     
+    // handler for SpawnController.spawnedEnemy
     public void OnEnemySpawned()
     {
         _spawnedEnemies++;
     }
 
+    // handler for RoomDoor.onExitTriggered
     public void ExitDoorTriggered()
     {
         onRoomExit.Invoke();
     }
     
+    // handler for Health.onDeath
     public void OnCharacterKilled(Common.Health charHealth)
     {
+        // it's an enemy if the associated gameobject has an enemycore component
         bool isEnemy = charHealth.GetComponent<AI.EnemyCore>() != null;
-        bool isPlayer = !isEnemy;
+        bool isPlayer = !isEnemy; // if not, it must be a player (assumptions!)
 
         if (isEnemy)
         {

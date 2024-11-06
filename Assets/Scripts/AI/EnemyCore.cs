@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 namespace AI
 {
+    /// <summary>
+    /// EnemyCore contains the start point for all NPC logic; it holds <c>Health<c> and <c>Attack<c> components 
+    /// along with stats brought in from a ScriptableObject (see <c>EnemyStatsSO<c>)
+    /// </summary>
     public class EnemyCore : MonoBehaviour
     {
         [SerializeField] private EnemyStatsSO statsData;
@@ -20,7 +24,6 @@ namespace AI
             _attack = GetComponent<BaseAttack>();
             _animator = GetComponent<Animator>();
             
-            // not sure how this will work with root motion animations?
             _navMeshAgent = GetComponent<NavMeshAgent>();
         }
 

@@ -4,6 +4,11 @@ using Random = UnityEngine.Random;
 
 namespace Rooms
 {
+    /// <summary>
+    /// SpawnPoint provides a way to position spawns in the game world for <c>SpawnController<c> to instantiate enemies at.
+    /// If they are used "in the wild", they should have a mesh assigned to gizmoMesh so they can be interacted with in the scene view
+    /// otherwise it's impossible to select them in the 3D view, you have to do it via the hierarchy.
+    /// </summary>
     public class SpawnPoint : MonoBehaviour
     {
         public Mesh gizmoMesh;

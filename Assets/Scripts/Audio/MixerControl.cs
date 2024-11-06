@@ -4,6 +4,10 @@ using UnityEngine.Audio;
 
 namespace Audio
 {
+    /// <summary>
+    /// MixerControl is where we work with the audio settings (sfx and music volumes, the overall mute)
+    /// it also deals with playing "background music" through the associated AudioSource.
+    /// </summary>
     public class MixerControl : MonoBehaviour
     {
         public AudioMixer audioMixer;
@@ -12,10 +16,14 @@ namespace Audio
 
         private const string SfxMixer = "SfxVolume";
         private const string MusicMixer = "MusicVolume";
+        private const string MusicGroup = "Music";
         
         private void Start()
         {
             _settings = FindFirstObjectByType<SettingsControl>();
+            
+            Debug.Assert(_settings, "No SettingsControl object in scene.");
+            
             // hook into the settings changed event so we update the mixer settings as soon as the 
             // player changes anything.
             _settings.onSettingsChanged.AddListener(UpdateMixer);
@@ -26,7 +34,7 @@ namespace Audio
                 _audioSource = gameObject.AddComponent<AudioSource>();
             }
 
-            _audioSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Music")[0];
+            _audioSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups(MusicGroup)[0];
 
             audioMixer.SetFloat(SfxMixer, _settings.SfxDb);
             audioMixer.SetFloat(MusicMixer, _settings.MusicDb);
