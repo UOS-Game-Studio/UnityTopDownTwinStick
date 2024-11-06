@@ -38,12 +38,20 @@ namespace Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            var characterForward = _characterTransform.forward;
-            var characterRight = _characterTransform.right;
-            Vector2 forward2d = new Vector2(characterForward.x * -1, characterForward.z);
-            Vector2 right2d = new Vector2(characterRight.x, characterRight.z * -1);
-            Velocity = context.ReadValue<Vector2>().y * forward2d + context.ReadValue<Vector2>().x * right2d;
+            Vector2 inputValue = context.ReadValue<Vector2>();
 
+            //Debug.Log(inputValue);
+            
+            Vector2 characterForward = new Vector2(_characterTransform.forward.x, _characterTransform.forward.z);
+            Vector2 characterRight = new Vector2(_characterTransform.right.x, _characterTransform.right.z);
+            //Vector2 forward2d = new Vector2(characterForward.x * -1, characterForward.z);
+            //Vector2 right2d = new Vector2(characterRight.x, characterRight.z * -1);
+            Velocity = characterForward * inputValue.y;
+            Velocity += characterRight * inputValue.x;
+            Velocity.Normalize();
+                //Velocity = inputValue.y * characterForward + inputValue.x * characterRight;
+
+            Debug.Log(Velocity);
             //Debug.Log("forwaed2d:"+forward2d+" Right2d:"+right2d+" Velocity:"+Velocity);
         }
 
