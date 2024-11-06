@@ -13,8 +13,15 @@ namespace PlayerCombat
     // REVIEW: Do we rename this to just "Weapon"? It's in the PlayerCombat namespace, so it can't clash with anything else?
     public class PlayerWeapon : MonoBehaviour
     {
+        [Header("Setup")]
         public GameObject projectilePrefab;
         public WeaponStats stats;
+        
+        [Header("Model Attachment")]
+        public Transform firePoint;
+        public Transform attachPoint;
+        public Transform weaponAttachment;
+        public Vector3 rotationOffset;
         
         private InputAction _fireAction;
         private WeaponProjectilePool _projectilePool;
@@ -44,6 +51,12 @@ namespace PlayerCombat
 
             // cache the WaitForSeconds object as the fire rate does not change as we play.
             _fireDelay = new WaitForSeconds(stats.fireDelay);
+
+            if (attachPoint)
+            {
+                transform.SetParent(attachPoint, true);
+                transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(rotationOffset));
+            }
         }
         
         private void IA_FireActionOnCanceled(InputAction.CallbackContext obj)
@@ -94,8 +107,8 @@ namespace PlayerCombat
                 
                 // SetPositionAndRotation is a more efficient way of doing this than setting position and rotation properties
                 // individually. https://docs.unity3d.com/ScriptReference/Transform.SetPositionAndRotation.html
-                projectileObject.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
-                projectileObject.OnFire(transform.forward, GetCurrentDamage());
+                projectileObject.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
+                projectileObject.OnFire(firePoint.forward, GetCurrentDamage());
                 _lastFire = Time.time;
                 yield return _fireDelay;
             }
