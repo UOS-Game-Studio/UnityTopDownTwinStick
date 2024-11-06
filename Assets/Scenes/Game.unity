@@ -1503,10 +1503,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1423548466359133067, guid: 8deb8b2f76c3e174c902690ee09daf6d, type: 3}
-      propertyPath: m_AngularSpeed
-      value: 1000
-      objectReference: {fileID: 0}
     - target: {fileID: 1462465209389756641, guid: 8deb8b2f76c3e174c902690ee09daf6d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.5957916
@@ -1943,7 +1939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2434095480336666595, guid: 34de14c5f4197634a889d99f3c3d216a, type: 3}
       propertyPath: m_Constraints
-      value: 80
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 3857181792234727000, guid: 34de14c5f4197634a889d99f3c3d216a, type: 3}
       propertyPath: aimPointObject

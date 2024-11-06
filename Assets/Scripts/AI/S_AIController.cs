@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -8,6 +9,7 @@ namespace AI
     {
         private NavMeshAgent agent;
         private Animator anim;
+        private GameObject PlayerRef;
 
         void Start()
         {
@@ -16,39 +18,44 @@ namespace AI
             anim.applyRootMotion = false;
             agent.updatePosition = true;
             agent.updateRotation = true;
+
+            PlayerRef = GameObject.Find("PlayerBase");
+
         }
 
         RaycastHit hit;
         void Update()
         {
-            Vector3 mouseLocation = new Vector3(Mouse.current.position.value.x, Mouse.current.position.value.y, 10);
-
-            
-            Ray ray = Camera.main.ScreenPointToRay(
-                    mouseLocation);
-            if (Physics.Raycast(ray, out hit))
+            if (Vector3.Distance(PlayerRef.transform.position, this.transform.position) < agent.stoppingDistance)
             {
-                
-
-                //Vector3 MouseNoY = new Vector3(agent.destination.x, 0, agent.destination.z);
-                //Vector3 porNoY = new Vector3(transform.position.x, 0, transform.position.z);
-                
-                //Debug.Log("-----------------");
-                //Debug.Log("MouseNoY: " +MouseNoY);
-                //Debug.Log("porNoY: " + porNoY);
-                
-                
-                agent.destination = hit.point;
-               // Vector3 AgentToMouseDir = (MouseNoY - porNoY).normalized;
-                anim.SetFloat("VelocityX", agent.velocity.magnitude);
-                
-                //Debug.Log("AgentToMouseDir.magnitude: " + AgentToMouseDir.magnitude);
+                anim.SetBool("CanAttack", true);
             }
+            else
+            {
+                anim.SetBool("CanAttack", false);
+                agent.destination = PlayerRef.transform.position;
+                anim.SetFloat("VelocityX", agent.velocity.magnitude);
 
+                //Vector3 mouseLocation = new Vector3(Mouse.current.position.value.x, Mouse.current.position.value.y, 10);
+
+                //Ray ray = Camera.main.ScreenPointToRay(
+                //    mouseLocation);
+                //if (Physics.Raycast(ray, out hit))
+                //{
+                //    agent.destination = hit.point;
+                //    anim.SetFloat("VelocityX", agent.velocity.magnitude);
+                //}
+            }
         }
         void OnDrawGizmos()
         {
-            Gizmos.DrawCube(hit.point, new Vector3(0.5f, 0.5f,0.5f));
+            //Gizmos.DrawCube(hit.point, new Vector3(0.5f, 0.5f,0.5f));
+            //Gizmos.DrawWireSphere(this.transform.position, agent.stoppingDistance);
+        }
+
+        void OnHitPlayer()
+        {
+            Debug.Log("hit player");
         }
     }
 

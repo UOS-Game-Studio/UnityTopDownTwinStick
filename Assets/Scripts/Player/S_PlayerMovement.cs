@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI;
 
+
 namespace Player
 {
     public class S_PlayerMovment : MonoBehaviour
