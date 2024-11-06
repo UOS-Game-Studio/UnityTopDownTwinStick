@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 using static UnityEngine.Rendering.DebugUI;
 
 namespace Player
@@ -18,6 +19,8 @@ namespace Player
         private Transform _characterTransform;
         private Camera _mainCamera;
 
+        private const float DirOffset = 2.0f;
+        
         private static readonly int Roll = Animator.StringToHash("Roll");
         private static readonly int VelocityX = Animator.StringToHash("VelocityX");
         private static readonly int VelocityZ = Animator.StringToHash("VelocityZ");
@@ -51,24 +54,20 @@ namespace Player
         // Rotate uses GamePad stick or Keyboard
         public void OnRotate(InputAction.CallbackContext context)
         {
-            //Debug.Log("OnRotate");
             Vector2 direction = context.ReadValue<Vector2>();
 
+            // gives us a bit of a dead zone on the stick
             if (direction.magnitude <= 0.2f) return;
-
-            const float dirOffset = 2.0f;
-
-            Vector3 offsetPosition = _characterTransform.position +
-                                     new Vector3(direction.x * dirOffset, 0.0f, direction.y * dirOffset);
-
-            Vector3 aimPosition = new Vector3((offsetPosition.x + direction.x) * dirOffset, aimPointObject.position.y,
-                (offsetPosition.z + direction.y) * dirOffset);
-            aimPointObject.position = offsetPosition;
+            
+            Vector3 normalizedDir = new Vector3(direction.x, 0.0f, direction.y).normalized;
+            
+            Vector3 offsetPosition = _characterTransform.position + normalizedDir * DirOffset;
+            Vector3 aimPosition = new Vector3(offsetPosition.x, aimPointObject.position.y, offsetPosition.z);
+            
+            aimPointObject.position = aimPosition;
             _aimPosition = offsetPosition;
-            //Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y).normalized, Vector3.up);
-
         }
-
+        
         // Aim follows the mouse cursor
         public void OnAim(InputAction.CallbackContext context)
         {
@@ -77,8 +76,13 @@ namespace Player
             Vector2 input = context.ReadValue<Vector2>();
             Vector3 worldMouse = _mainCamera.ScreenToWorldPoint(new Vector3(input.x, input.y, 10.0f));
             Vector3 worldMouseNoY = new Vector3(worldMouse.x, _characterTransform.position.y, worldMouse.z);
-
-            aimPointObject.position = new Vector3(worldMouse.x, aimPointObject.position.y, worldMouse.z);
+            
+            Vector3 direction = (worldMouseNoY - _characterTransform.position).normalized * DirOffset;
+            Vector3 offsetPosition = _characterTransform.position + direction;
+            
+            Vector3 aimPosition = new Vector3(offsetPosition.x, aimPointObject.position.y,
+                offsetPosition.z);
+            aimPointObject.position = aimPosition;
 
             if (worldMouseNoY != Vector3.zero)
                 _aimPosition = worldMouseNoY;
