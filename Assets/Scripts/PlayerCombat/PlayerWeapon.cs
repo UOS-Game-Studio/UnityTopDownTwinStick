@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace PlayerCombat
 {
@@ -13,8 +14,10 @@ namespace PlayerCombat
     // REVIEW: Do we rename this to just "Weapon"? It's in the PlayerCombat namespace, so it can't clash with anything else?
     public class PlayerWeapon : MonoBehaviour
     {
+        [Header("Setup")]
         public GameObject projectilePrefab;
         public WeaponStats stats;
+        public Transform weaponMuzzleTransform;
         
         private InputAction _fireAction;
         private WeaponProjectilePool _projectilePool;
@@ -94,8 +97,8 @@ namespace PlayerCombat
                 
                 // SetPositionAndRotation is a more efficient way of doing this than setting position and rotation properties
                 // individually. https://docs.unity3d.com/ScriptReference/Transform.SetPositionAndRotation.html
-                projectileObject.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
-                projectileObject.OnFire(transform.forward, GetCurrentDamage());
+                projectileObject.transform.SetPositionAndRotation(weaponMuzzleTransform.position, weaponMuzzleTransform.rotation);
+                projectileObject.OnFire(weaponMuzzleTransform.forward, GetCurrentDamage());
                 _lastFire = Time.time;
                 yield return _fireDelay;
             }

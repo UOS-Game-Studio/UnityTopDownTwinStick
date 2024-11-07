@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// GameOverControl handles pausing the game and showing the "game over" UI elements when <c>OnGameOver<c> is called
+/// GameOverControl handles pausing the game and showing the "game over" UI elements when <c>OnGameOver</c> is called
 /// </summary>
 public class GameOverControl : MonoBehaviour
 {

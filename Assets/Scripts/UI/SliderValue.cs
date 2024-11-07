@@ -24,7 +24,7 @@ namespace UI
     /// SliderValue is something of a restrictive class as it's tightly coupled to the "type" of Slider it represents
     /// that's fine for now, but if we had more sliders we would need to find a better approach.
     /// Events:
-    ///   onValueChanged - invoked when the slider value is changed, which then passes the value through to <c>SettingsControl<c>
+    ///   <c>onValueChanged</c> - invoked when the slider value is changed, which then passes the value through to <c>SettingsControl</c>
     /// </summary>
     public class SliderValue : MonoBehaviour
     {

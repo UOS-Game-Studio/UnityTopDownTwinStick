@@ -9,8 +9,8 @@ namespace Common
     /// Health is a universal health component, it can be attached to anything we want to take damage
     /// whether that's a PC or NPC (or anything else really)
     /// Events:
-    ///    <c>onDeath<c> - invoked when <c>_currentHealth<c> drops to or below 0 - passes an instance of Health along
-    ///    <c>onTakeDamage<c> - invoked whenever damage is taken
+    ///    <c>onDeath</c> - invoked when <c>_currentHealth</c> drops to or below 0 - passes an instance of Health along
+    ///    <c>onTakeDamage</c> - invoked whenever damage is taken
     /// </summary>
     public class Health : MonoBehaviour
     {
