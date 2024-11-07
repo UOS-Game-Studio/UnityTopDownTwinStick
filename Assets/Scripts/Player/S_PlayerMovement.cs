@@ -12,11 +12,14 @@ namespace Player
 
         public Transform aimPointObject;
 
+        public bool shouldStopMovement;
+        
         private Vector3 _aimPosition = Vector3.zero;
         private Transform _characterTransform;
         private Camera _mainCamera;
 
         private const float DirOffset = 2.0f;
+        private const float MinDistance = 0.4f;
         
         private static readonly int Roll = Animator.StringToHash("Roll");
         private static readonly int VelocityX = Animator.StringToHash("VelocityX");
@@ -31,26 +34,32 @@ namespace Player
 
         public void Update()
         {
+            float distance = Vector3.Distance(transform.position, _aimPosition);
+            if (distance <= MinDistance)
+            {
+                if (shouldStopMovement)
+                {
+                    Velocity = Vector2.zero;
+                }
+                else
+                {
+                    // this approach leads to some weird behaviour once you move "past" where the aim point is.
+                    _aimPosition = transform.position + (transform.forward * 2.0f);
+                }
+            }
+            
             anim.SetFloat(VelocityX, Velocity.x);
             anim.SetFloat(VelocityZ, Velocity.y);
             _characterTransform.LookAt(_aimPosition);
         }
-
+        
         public void OnMove(InputAction.CallbackContext context)
         {
             Vector2 inputValue = context.ReadValue<Vector2>();
-
-            //Debug.Log(inputValue);
             
             Vector2 characterForward = new Vector2(_characterTransform.forward.x, _characterTransform.forward.z);
             Vector2 characterRight = new Vector2(_characterTransform.right.x, _characterTransform.right.z);
-            //Vector2 forward2d = new Vector2(characterForward.x * -1, characterForward.z);
-            //Vector2 right2d = new Vector2(characterRight.x, characterRight.z * -1);
             Velocity = inputValue.normalized;
-                //Velocity = inputValue.y * characterForward + inputValue.x * characterRight;
-
-            Debug.Log(Velocity);
-            //Debug.Log("forwaed2d:"+forward2d+" Right2d:"+right2d+" Velocity:"+Velocity);
         }
 
         // Rotate uses GamePad stick or Keyboard
