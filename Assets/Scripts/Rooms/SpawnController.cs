@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -23,7 +22,7 @@ namespace Rooms
         // https://docs.unity3d.com/ScriptReference/AnimationCurve.html
         public AnimationCurve spawnCurve;
         public GameObject enemyPrefab;
-        public int enemiesToSpawnInRoom; //Review: rename to minimumEnemiesToSpawn?
+        public int minimumEnemiesToSpawn;
         public int enemiesInRoomAtStart;
         [SerializeField] private float spawnRate = 2.0f;
 
@@ -36,6 +35,8 @@ namespace Rooms
         
         private WaitForSeconds _coroutineWait;
 
+        private const int MaxDoors = 3;
+        
         private void OnDestroy()
         {
             spawnedEnemy.RemoveAllListeners();
@@ -84,12 +85,11 @@ namespace Rooms
             // just in case we have no doors (for some reason?!) - we'll still spawn monsters
             if (_validDoors.Length == 0)
                 _validDoors = _startPoints;
-            
-            const float maxDoors = 3.0f;
+
             // adjust the curve keys to adjust for the maximum number of enemies to spawn
             // this enforces a max number of 3 at the top end, as that's how many doors aren't "locked"
-            spawnCurve.MoveKey(2, new Keyframe(enemiesToSpawnInRoom, 0.0f));
-            spawnCurve.MoveKey(1, new Keyframe(enemiesToSpawnInRoom / 2.0f, maxDoors));
+            spawnCurve.MoveKey(2, new Keyframe(minimumEnemiesToSpawn, 0.0f));
+            spawnCurve.MoveKey(1, new Keyframe(minimumEnemiesToSpawn / 2.0f, MaxDoors));
         }
 
         private void Start()
@@ -125,7 +125,7 @@ namespace Rooms
             if(_startPoints.Length > 0)
                 _spawnCount = enemiesInRoomAtStart;
 
-            roomStarted.Invoke(enemiesToSpawnInRoom);
+            roomStarted.Invoke(minimumEnemiesToSpawn);
         }
 
         public void StartSpawning()
@@ -139,7 +139,7 @@ namespace Rooms
             {
                 yield return _coroutineWait;
 
-                if (_spawnCount >= enemiesToSpawnInRoom) break;
+                if (_spawnCount >= minimumEnemiesToSpawn) break;
 
                 // the animation curve gives us a float value based on the "time" we pass
                 // in to evaluate; here our time is actually how many enemies have already spawned.

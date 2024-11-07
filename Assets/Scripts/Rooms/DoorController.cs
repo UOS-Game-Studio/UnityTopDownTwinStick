@@ -35,12 +35,9 @@ namespace Rooms
                 DoorDirection.West => DoorDirection.East,
                 _ => throw new ArgumentOutOfRangeException(nameof(exitDir), exitDir, null)
             };
-
-            Debug.Log("Set entry direction, finding spawn door for entry dir " + entryDir);
             
             foreach (RoomDoor door in doors)
             {
-                Debug.Log(door.direction);
                 if (door.direction != entryDir) continue;
                 
                 door.MakeSpawnDoor();

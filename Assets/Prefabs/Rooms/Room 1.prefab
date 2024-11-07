@@ -118,6 +118,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8568742389386113861, guid: 52743f4e1d760f043b3a4396fbc30a0f, type: 3}
+      propertyPath: minimumEnemiesToSpawn
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
