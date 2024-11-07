@@ -14,7 +14,6 @@ namespace PlayerCombat
     // REVIEW: Do we rename this to just "Weapon"? It's in the PlayerCombat namespace, so it can't clash with anything else?
     public class PlayerWeapon : MonoBehaviour
     {
-        [Header("Setup")]
         public GameObject projectilePrefab;
         public WeaponStats stats;
         public Transform weaponMuzzleTransform;
@@ -58,7 +57,7 @@ namespace PlayerCombat
         private void IA_FireActionOnStarted(InputAction.CallbackContext obj)
         {
             // a guaranteed way of resetting _canFire if the last shot was fired long enough ago but _canFire is still false.
-            if (Time.time < _lastFire + stats.fireDelay && !_canFire)
+            if (Time.time >= _lastFire + stats.fireDelay && !_canFire)
                 _canFire = true;
             
             // if we're still waiting for a previous shot to cool down, we can't fire again
@@ -90,7 +89,7 @@ namespace PlayerCombat
         // code becomes a little more complicated.
         private IEnumerator FiringRoutine()
         {
-            while (_isFiring)
+            while (_isFiring && Time.time >= _lastFire + stats.fireDelay)
             {
                 // retrieve a projectile from the object pool, move it to the fire point and set it moving
                 PlayerProjectile projectileObject = _projectilePool.Pool.Get();
