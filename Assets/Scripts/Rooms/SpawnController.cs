@@ -12,8 +12,8 @@ namespace Rooms
     /// SpawnController is attached to a room prefab, it owns how many enemies should spawn (really, the minimum number)
     /// and it maintains arrays of spawn points, both "start points" and "doors"
     /// Events: 
-    ///   <c>spawnedEnemy<c> - invoked when any enemy is spawned.
-    ///   <c>roomStarted<c> - invoked after spawning the initial enemies (as defined by enemiesInRoomAtStart) passing <c>enemiesToSpawnInRoom<c>.
+    ///   <c>spawnedEnemy</c> - invoked when any enemy is spawned.
+    ///   <c>roomStarted</c> - invoked after spawning the initial enemies (as defined by enemiesInRoomAtStart) passing <c>enemiesToSpawnInRoom</c>.
     /// </summary>
     public class SpawnController : MonoBehaviour
     {

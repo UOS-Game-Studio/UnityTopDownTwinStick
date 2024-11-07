@@ -7,10 +7,10 @@ using UnityEngine.Events;
 /// GameController tracks our progress through the current room.
 /// It has a set of events that are invoked at specific points:
 /// Events:
-///     onRoomComplete - when all enemies are dead
-///     onGameOver - on PC death
-///     onRoomBegin - when a room has instantiated and is ready to spawn enemies
-///     onRoomExit - when the PC hits a door trigger
+///     <c>onRoomComplete</c> - when all enemies are dead
+///     <c>onGameOver</c> - on PC death
+///     <c>onRoomBegin</c> - when a room has instantiated and is ready to spawn enemies
+///     <c>onRoomExit</c> - when the PC hits a door trigger
 /// </summary>
 public class GameController : MonoBehaviour
 {

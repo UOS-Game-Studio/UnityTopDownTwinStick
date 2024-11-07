@@ -15,9 +15,9 @@ namespace Rooms
     
     /// <summary>
     /// RoomDoor is the logical representation of the doors that exist in each room.
-    /// they are responsible for spawning enemies via an associated <c>SpawnPoint<c> when told to by <c>SpawnController<c>
+    /// they are responsible for spawning enemies via an associated <c>SpawnPoint</c> when told to by <c>SpawnController</c>
     /// Events:
-    ///     _onExitTriggered - invoked when the player enters this doors trigger volume when the door is unlocked.
+    ///     <c>_onExitTriggered</c> - invoked when the player enters this doors trigger volume when the door is unlocked.
     /// </summary>
     public class RoomDoor : MonoBehaviour
     {

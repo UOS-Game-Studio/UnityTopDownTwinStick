@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// PauseControl handles when the player hits a key bound to the Pause action in the Action Map.
-/// The approach to pausing is not ideal; we set Time.timescale to 0 which works but causes issues
+/// The approach to pausing is not ideal; we set <c>Time.timescale</c> to 0 which works but causes issues
 /// things like UI animations will also stop, which we may not want to happen just because we've paused the game.
 /// </summary>
 public class PauseControl : MonoBehaviour

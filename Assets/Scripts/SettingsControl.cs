@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// SettingsControl is the repository for any settings related to the game, at the moment
 /// these are just volume / sound related. It loads and saves settings values from PlayerPrefs.
 /// Events:
-///     onSettingsChanged - invoked whenever a settings value is modified
+///     <c>onSettingsChanged</c> - invoked whenever a settings value is modified
 /// </summary>
 public class SettingsControl : MonoBehaviour
 {
