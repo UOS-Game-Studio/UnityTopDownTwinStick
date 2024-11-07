@@ -46,9 +46,7 @@ namespace Player
             Vector2 characterRight = new Vector2(_characterTransform.right.x, _characterTransform.right.z);
             //Vector2 forward2d = new Vector2(characterForward.x * -1, characterForward.z);
             //Vector2 right2d = new Vector2(characterRight.x, characterRight.z * -1);
-            Velocity = characterForward * inputValue.y;
-            Velocity += characterRight * inputValue.x;
-            Velocity.Normalize();
+            Velocity = inputValue.normalized;
                 //Velocity = inputValue.y * characterForward + inputValue.x * characterRight;
 
             Debug.Log(Velocity);
