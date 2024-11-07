@@ -11,22 +11,22 @@ PrefabInstance:
     - target: {fileID: 3183823957410342222, guid: 52743f4e1d760f043b3a4396fbc30a0f, type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: aba217d574fbe21479e61f8ad07d8d9a, type: 2}
+      objectReference: {fileID: 23800000, guid: b93b099ee22dabe47b4e96d92802b38e, type: 2}
     - target: {fileID: 3613090901463256576, guid: 52743f4e1d760f043b3a4396fbc30a0f, type: 3}
       propertyPath: m_Name
       value: Room 2
       objectReference: {fileID: 0}
     - target: {fileID: 7033483226423442334, guid: 52743f4e1d760f043b3a4396fbc30a0f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 18.167484
       objectReference: {fileID: 0}
     - target: {fileID: 7033483226423442334, guid: 52743f4e1d760f043b3a4396fbc30a0f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7033483226423442334, guid: 52743f4e1d760f043b3a4396fbc30a0f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -4.5748997
       objectReference: {fileID: 0}
     - target: {fileID: 7033483226423442334, guid: 52743f4e1d760f043b3a4396fbc30a0f, type: 3}
       propertyPath: m_LocalRotation.w

@@ -40,7 +40,8 @@ namespace Audio
             audioMixer.SetFloat(MusicMixer, _settings.MusicDb);
             _audioSource.mute = _settings.IsMuted;
         }
-
+        
+        
         private void OnDisable()
         {
             // as this mixer control is being removed, we can't leave it hooked up to SettingsControl.

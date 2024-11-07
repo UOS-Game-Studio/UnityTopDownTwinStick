@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -12,14 +13,23 @@ public class PauseControl : MonoBehaviour
     public GameObject hudCanvas;
     public GameObject pauseMenu;
 
+    public PlayerInput playerInput;
+
+    public static readonly UnityEvent<bool> OnPause = new UnityEvent<bool>(); 
+    
     private bool _isPaused;
     private InputAction _pauseAction;
+    private InputAction _unpauseAction;
     
     private void Start()
     {
         _pauseAction = InputSystem.actions.FindAction("Pause", true);
-
         _pauseAction.performed += IA_ActionPausePerformed;
+        
+        _unpauseAction = InputSystem.actions.FindAction("Unpause", true);
+        _unpauseAction.performed += IA_ActionPausePerformed;
+        
+        playerInput.SwitchCurrentActionMap("Player");
     }
 
     private void PerformPause()
@@ -28,16 +38,16 @@ public class PauseControl : MonoBehaviour
         {
             hudCanvas.SetActive(true);
             pauseMenu.SetActive(false);
-            Time.timeScale = 1.0f;
         }
         else
         {
             hudCanvas.SetActive(false);
             pauseMenu.SetActive(true);
-            Time.timeScale = 0.0f;
         }
 
         _isPaused = !_isPaused;
+        
+        OnPause.Invoke(_isPaused);
     }
 
     private void OnDestroy()
@@ -46,6 +56,7 @@ public class PauseControl : MonoBehaviour
         // if we're going to a different scene, we want to make sure it all just "works".
         Time.timeScale = 1.0f;
         _pauseAction.performed -= IA_ActionPausePerformed;
+        _unpauseAction.performed -= IA_ActionPausePerformed;
     }
 
     // while most pausing takes place from the input interactions, we expose this to allow any other systems

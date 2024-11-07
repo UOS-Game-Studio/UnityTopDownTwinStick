@@ -36,6 +36,8 @@ namespace Rooms
         private WaitForSeconds _coroutineWait;
 
         private const int MaxDoors = 3;
+
+        private bool _isPaused;
         
         private void OnDestroy()
         {
@@ -90,8 +92,15 @@ namespace Rooms
             // this enforces a max number of 3 at the top end, as that's how many doors aren't "locked"
             spawnCurve.MoveKey(2, new Keyframe(minimumEnemiesToSpawn, 0.0f));
             spawnCurve.MoveKey(1, new Keyframe(minimumEnemiesToSpawn / 2.0f, MaxDoors));
+            
+            PauseControl.OnPause.AddListener(PauseHandler);
         }
 
+        private void PauseHandler(bool isPaused)
+        {
+            _isPaused = isPaused;
+        }
+        
         private void Start()
         {
             _coroutineWait = new WaitForSeconds(spawnRate);
@@ -139,6 +148,8 @@ namespace Rooms
             {
                 yield return _coroutineWait;
 
+                yield return new WaitUntil(() => !_isPaused);
+                
                 if (_spawnCount >= minimumEnemiesToSpawn) break;
 
                 // the animation curve gives us a float value based on the "time" we pass

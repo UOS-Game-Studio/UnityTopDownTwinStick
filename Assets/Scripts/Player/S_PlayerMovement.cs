@@ -25,15 +25,26 @@ namespace Player
         private static readonly int VelocityX = Animator.StringToHash("VelocityX");
         private static readonly int VelocityZ = Animator.StringToHash("VelocityZ");
 
+        private bool _isPaused;
+        
         public void Start()
         {
             anim = gameObject.GetComponentInChildren<Animator>();
             _mainCamera = Camera.main;
             _characterTransform = transform;
+            PauseControl.OnPause.AddListener(PauseHandler);
         }
 
+        private void PauseHandler(bool isPaused)
+        {
+            anim.enabled = !isPaused;
+            _isPaused = isPaused;
+        }
+        
         public void Update()
         {
+            if (_isPaused) return;
+            
             float distance = Vector3.Distance(transform.position, _aimPosition);
             if (distance <= MinDistance)
             {
