@@ -54,7 +54,7 @@ namespace AI
 
         void Update()
         {
-            if (!_navMeshAgent.enabled) return;
+            if (!_navMeshAgent.enabled || _attack.IsAttacking) return;
             
             if (Vector3.Distance(_playerTransform.position, this.transform.position) < _navMeshAgent.stoppingDistance)
             {
