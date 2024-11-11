@@ -2,10 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 namespace Player
 {
     public class S_PlayerMovment : MonoBehaviour
     {
+        
         //[SerializeField] private float speed = 1.0f;
         private Vector2 Velocity = new();
         private Animator anim;
