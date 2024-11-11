@@ -2421,13 +2421,14 @@ GameObject:
   - component: {fileID: 7482666922438476754}
   - component: {fileID: 4757637470323199267}
   - component: {fileID: 6855706359826740052}
+  - component: {fileID: 8296951732889188318}
   - component: {fileID: 1664890936560500085}
-  - component: {fileID: 740143291145037417}
+  - component: {fileID: 4394746508874337744}
   - component: {fileID: 4998733216479142949}
   - component: {fileID: 2434095480336666595}
   - component: {fileID: 1232825922973510940}
+  - component: {fileID: 1618165861925977767}
   - component: {fileID: 2502105551268561778}
-  - component: {fileID: 8296951732889188318}
   m_Layer: 6
   m_Name: PlayerBase
   m_TagString: Player
@@ -2625,6 +2626,20 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &8296951732889188318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524938570072951933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a641352b15d2f834d933c926c47b13eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aimPointObject: {fileID: 0}
+  shouldStopMovement: 0
 --- !u!114 &1664890936560500085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2643,24 +2658,27 @@ MonoBehaviour:
   onTakeDamage:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &740143291145037417
-MonoBehaviour:
+--- !u!135 &4394746508874337744
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7524938570072951933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 267b27af339853746847161470f137a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
-  onTakeDamage:
-    m_PersistentCalls:
-      m_Calls: []
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.45, z: 0}
 --- !u!136 &4998733216479142949
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2709,7 +2727,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &1232825922973510940
 MonoBehaviour:
@@ -2863,6 +2881,18 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
+--- !u!114 &1618165861925977767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524938570072951933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61761809d8b4c44dac7d7410a0ccc9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2502105551268561778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2931,20 +2961,6 @@ MonoBehaviour:
   - {fileID: 5433209847395072852}
   - {fileID: 5433308412074486500}
   - {fileID: 5433500512658730378}
---- !u!114 &8296951732889188318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7524938570072951933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a641352b15d2f834d933c926c47b13eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aimPointObject: {fileID: 0}
-  shouldStopMovement: 0
 --- !u!1 &7886442125248206103
 GameObject:
   m_ObjectHideFlags: 0
