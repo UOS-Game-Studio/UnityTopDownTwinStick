@@ -3,9 +3,18 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// GameController tracks our progress through the current room.
+/// It has a set of events that are invoked at specific points:
+/// Events:
+///     <c>onRoomComplete</c> - when all enemies are dead
+///     <c>onGameOver</c> - on PC death
+///     <c>onRoomBegin</c> - when a room has instantiated and is ready to spawn enemies
+///     <c>onRoomExit</c> - when the PC hits a door trigger
+/// </summary>
 public class GameController : MonoBehaviour
 {
-    private int _livingEnemies;
+    private int _spawnedEnemies;
     private int _maxEnemies;
     private int _killedEnemies;
 
@@ -15,52 +24,61 @@ public class GameController : MonoBehaviour
     public UnityEvent onRoomComplete = new UnityEvent();
     public UnityEvent onGameOver = new UnityEvent();
     public UnityEvent onRoomBegin = new UnityEvent();
+    public UnityEvent onRoomExit = new UnityEvent();
 
     private void Start()
     {
         _startWaitTime = new WaitForSeconds(roomStartWaitTime);
-        StartCoroutine(StartRoom());
     }
 
     private IEnumerator StartRoom()
     {
         yield return _startWaitTime;
-        
         onRoomBegin.Invoke();
     }
     
+    // handler for the SpawnController.roomStarted event
     public void OnRoomStart(int maxEnemies)
     {
+        _killedEnemies = 0;
         _maxEnemies = maxEnemies;
+        StartCoroutine(StartRoom());
     }
     
+    // handler for SpawnController.spawnedEnemy
     public void OnEnemySpawned()
     {
-        _livingEnemies++;
+        _spawnedEnemies++;
     }
 
+    // handler for RoomDoor.onExitTriggered
+    public void ExitDoorTriggered()
+    {
+        onRoomExit.Invoke();
+    }
+    
+    // handler for Health.onDeath
     public void OnCharacterKilled(Common.Health charHealth)
     {
+        // it's an enemy if the associated gameobject has an enemycore component
         bool isEnemy = charHealth.GetComponent<AI.EnemyCore>() != null;
-        bool isPlayer = !isEnemy;
+        bool isPlayer = !isEnemy; // if not, it must be a player (assumptions!)
 
         if (isEnemy)
         {
-            _livingEnemies--;
             _killedEnemies++;
 
-            if (_killedEnemies >= _maxEnemies)
+            // due to the spawn curve, we sometimes get an extra enemy or two, so we have to account for that here!
+            if (_killedEnemies >= _maxEnemies && _killedEnemies >= _spawnedEnemies)
             {
-                Debug.Log("Room complete");
+                _spawnedEnemies = 0;
                 onRoomComplete.Invoke();
                 return;
             }
-            
         }
 
         if (isPlayer)
         {
-            Debug.Log("Handle the game over state here");
             onGameOver.Invoke();
         }
     }

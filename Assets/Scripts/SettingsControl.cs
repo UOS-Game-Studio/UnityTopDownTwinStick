@@ -3,6 +3,12 @@ using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.Events;
 
+/// <summary>
+/// SettingsControl is the repository for any settings related to the game, at the moment
+/// these are just volume / sound related. It loads and saves settings values from PlayerPrefs.
+/// Events:
+///     <c>onSettingsChanged</c> - invoked whenever a settings value is modified
+/// </summary>
 public class SettingsControl : MonoBehaviour
 {
     public UnityEvent onSettingsChanged = new UnityEvent();
@@ -48,6 +54,7 @@ public class SettingsControl : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // check for any existing values in PlayerPrefs and restore them if they exist
         if (PlayerPrefs.HasKey(SfxKey))
         {
             _sfxVolume = PlayerPrefs.GetFloat(SfxKey);
@@ -69,6 +76,8 @@ public class SettingsControl : MonoBehaviour
 
     public void OnToggleMute()
     {
+        // this is a short cut way of saying _muted is equal to the opposite value it currently has.
+        // we can only really do this with booleans, as it flips a false into true and vice versa.
         _muted = !_muted;
         onSettingsChanged.Invoke();
     }

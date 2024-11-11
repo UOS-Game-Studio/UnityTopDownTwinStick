@@ -1,12 +1,16 @@
 using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Rooms
 {
+    /// <summary>
+    /// SpawnPoint provides a way to position spawns in the game world for <c>SpawnController</c> to instantiate enemies at.
+    /// If they are used "in the wild", they should have a mesh assigned to gizmoMesh so they can be interacted with in the scene view
+    /// otherwise it's impossible to select them in the 3D view, you have to do it via the hierarchy.
+    /// </summary>
     public class SpawnPoint : MonoBehaviour
     {
-        [SerializeField] private Mesh gizmoMesh;
+        public Mesh gizmoMesh;
         [SerializeField] private bool startingSpawn = true;
         private Vector3 _spawnPosition;
         private Quaternion _spawnRotation;
@@ -48,11 +52,11 @@ namespace Rooms
             Gizmos.DrawWireMesh(gizmoMesh, transform.position, transform.rotation);
         }
 
-        public void SpawnObject(GameObject prefab)
+        public void SpawnObject(GameObject prefab, Transform parent)
         {
             Vector3 spawnPosition =
                 new Vector3(_spawnPosition.x, _spawnPosition.y + YOffset, _spawnPosition.z);
-            Instantiate(prefab, spawnPosition, _spawnRotation);
+            Instantiate(prefab, spawnPosition, _spawnRotation, parent);
         }
     }
 }

@@ -19,6 +19,13 @@ namespace UI
      * Fundamentally, this is only here as a connector between SettingsControl and the actual Slider object
      * if we didn't need the slider to be updated based on saved values, we wouldn't need this.
     */
+    
+    /// <summary>
+    /// SliderValue is something of a restrictive class as it's tightly coupled to the "type" of Slider it represents
+    /// that's fine for now, but if we had more sliders we would need to find a better approach.
+    /// Events:
+    ///   <c>onValueChanged</c> - invoked when the slider value is changed, which then passes the value through to <c>SettingsControl</c>
+    /// </summary>
     public class SliderValue : MonoBehaviour
     {
         [SerializeField] private Slider slider;

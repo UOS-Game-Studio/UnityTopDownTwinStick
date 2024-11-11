@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireDelay: 0.37
   baseDamage: 1
+  adjustedValue: 1
+  moveDamageModifier: 1
+  shootDamageModifier: 1
+  rollDamageModifier: 1
