@@ -13,15 +13,21 @@ namespace AI
     {
         [SerializeField] private LayerMask mask;
         private Transform _attackPoint;
+
+        private Animator _anim;
         private float _damage;
         private float _range;
         private float _windupTime;
         private WaitForSeconds _windupWait;
 
+        private static readonly int CanAttack = Animator.StringToHash("CanAttack");
+        
         public void Awake()
         {
             _attackPoint = transform.Find("AttackPoint");
             Debug.Assert(_attackPoint, "No AttackPoint child object on " + name);
+
+            _anim = GetComponent<Animator>();
         }
         
         public void Initialize(float range, float damage, float windupTime)
@@ -38,20 +44,20 @@ namespace AI
         // and just have the animation event trigger "DoAttack" itself when suitable.
         public void StartAttack()
         {
+            _anim.SetBool(CanAttack, true);
+            
             // start the wind up.
-            StartCoroutine(DoAttack());
+            //StartCoroutine(DoAttack());
         }
 
-        private IEnumerator DoAttack()
+        public void DoAttack()
         {
-            yield return _windupWait;
-
             // a Ray is an infinite line with a start point and direction.
             Ray attackRay = new Ray(_attackPoint.position, _attackPoint.forward);
             
             // this uses an inline declaration of rayHit, which is unique to arguments with the "out" keyword:
             // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/method-parameters#out-parameter-modifier
-            if (!Physics.Raycast(attackRay, out RaycastHit rayHit, _range, mask)) yield return null;
+            if (!Physics.Raycast(attackRay, out RaycastHit rayHit, _range, mask)) return;
             
             Health enemyHealth = rayHit.transform.GetComponent<Health>();
             

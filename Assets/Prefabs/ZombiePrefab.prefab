@@ -3011,14 +3011,12 @@ GameObject:
   - component: {fileID: 6540607331344780109}
   - component: {fileID: 1928071507710295885}
   - component: {fileID: 2486461572765792708}
-  - component: {fileID: 8923033521313919273}
   - component: {fileID: 1423548466359133067}
   - component: {fileID: 6635415149230036256}
   - component: {fileID: 6409670849158720027}
-  - component: {fileID: 696471924897306825}
   m_Layer: 0
   m_Name: ZombiePrefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3108,10 +3106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48fa56af073ea3243860f04ffbc15c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPoint: {fileID: 7339023470854618698}
   mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &2486461572765792708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3124,12 +3121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267b27af339853746847161470f137a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 1
   onDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8923033521313919273}
-        m_TargetAssemblyTypeName: AI.S_AIController, Assembly-CSharp
+      - m_Target: {fileID: 6540607331344780109}
+        m_TargetAssemblyTypeName: AI.EnemyCore, Assembly-CSharp
         m_MethodName: OnDeath
         m_Mode: 0
         m_Arguments:
@@ -3143,9 +3139,9 @@ MonoBehaviour:
   onTakeDamage:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8923033521313919273}
-        m_TargetAssemblyTypeName: AI.S_AIController, Assembly-CSharp
-        m_MethodName: OnTakeDamage
+      - m_Target: {fileID: 6540607331344780109}
+        m_TargetAssemblyTypeName: AI.EnemyCore, Assembly-CSharp
+        m_MethodName: RespondToDamage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3155,18 +3151,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8923033521313919273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467870294077323185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4ff4bf84a67bcf4da2e3d64b95e5331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &1423548466359133067
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3239,25 +3223,6 @@ CapsuleCollider:
   m_Height: 2.25
   m_Direction: 1
   m_Center: {x: 0, y: 0.88, z: 0}
---- !u!114 &696471924897306825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467870294077323185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 267b27af339853746847161470f137a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 1
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
-  onTakeDamage:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1467876707924175069
 GameObject:
   m_ObjectHideFlags: 0
