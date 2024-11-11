@@ -20,7 +20,7 @@ namespace Player
         private Vector3 _aimPosition = Vector3.zero;
         private Transform _characterTransform;
         private Camera _mainCamera;
-
+        
         private const float DirOffset = 2.0f;
         private const float MinDistance = 0.4f;
         
@@ -70,9 +70,6 @@ namespace Player
         public void OnMove(InputAction.CallbackContext context)
         {
             Vector2 inputValue = context.ReadValue<Vector2>();
-            
-            Vector2 characterForward = new Vector2(_characterTransform.forward.x, _characterTransform.forward.z);
-            Vector2 characterRight = new Vector2(_characterTransform.right.x, _characterTransform.right.z);
             Velocity = inputValue.normalized;
         }
 
