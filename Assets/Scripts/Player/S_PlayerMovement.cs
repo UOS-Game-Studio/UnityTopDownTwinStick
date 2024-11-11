@@ -1,11 +1,12 @@
 using System;
+using Common;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 namespace Player
 {
-    public class S_PlayerMovment : MonoBehaviour
+    public class S_PlayerMovment : MonoBehaviour, IPausable
     {
         
         //[SerializeField] private float speed = 1.0f;
@@ -37,7 +38,7 @@ namespace Player
             PauseControl.OnPause.AddListener(PauseHandler);
         }
 
-        private void PauseHandler(bool isPaused)
+        public void PauseHandler(bool isPaused)
         {
             anim.enabled = !isPaused;
             _isPaused = isPaused;
