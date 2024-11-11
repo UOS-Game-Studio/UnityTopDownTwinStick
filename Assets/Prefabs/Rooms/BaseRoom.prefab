@@ -477,7 +477,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  enemyPrefab: {fileID: 4261264091733659315, guid: 4393c82978660c746b4ccc94f532a86e, type: 3}
+  enemyPrefab: {fileID: 1467870294077323185, guid: 8deb8b2f76c3e174c902690ee09daf6d, type: 3}
   minimumEnemiesToSpawn: 4
   enemiesInRoomAtStart: 2
   spawnRate: 2
