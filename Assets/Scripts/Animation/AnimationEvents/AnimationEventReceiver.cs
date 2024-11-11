@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Common.AnimationEvents
+namespace Animation.AnimationEvents
 {
     public class AnimationEventReceiver : MonoBehaviour
     {

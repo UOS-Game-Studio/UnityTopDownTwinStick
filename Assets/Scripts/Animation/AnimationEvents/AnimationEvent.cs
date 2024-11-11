@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine.Events;
 
-namespace Common.AnimationEvents
+namespace Animation.AnimationEvents
 {
     [Serializable]
     public class AnimationEvent

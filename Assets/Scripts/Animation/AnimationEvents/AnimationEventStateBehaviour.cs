@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Common.AnimationEvents
+namespace Animation.AnimationEvents
 {
     public class AnimationEventStateBehaviour : StateMachineBehaviour
     {
