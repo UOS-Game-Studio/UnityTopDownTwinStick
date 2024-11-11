@@ -1,3 +1,4 @@
+using Common;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -24,8 +25,14 @@ namespace AI
         }
 
         RaycastHit hit;
+        private bool isDead = false;
+        private static readonly int IsDead = Animator.StringToHash("IsDead");
+
         void Update()
         {
+            if (isDead)
+                return;
+            
             if (Vector3.Distance(PlayerRef.transform.position, this.transform.position) < agent.stoppingDistance)
             {
                 anim.SetBool("CanAttack", true);
@@ -57,6 +64,19 @@ namespace AI
         {
             Debug.Log("hit player");
         }
+
+        public void OnDeath(Health sender)
+        {
+            isDead = true;
+            anim.SetTrigger(IsDead);
+            agent.velocity = Vector3.zero;
+        }
+
+        public void OnTakeDamage()
+        {
+            Debug.Log("zombie hit");
+        }
+        
     }
 
     
