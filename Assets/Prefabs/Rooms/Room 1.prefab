@@ -97,7 +97,7 @@ PrefabInstance:
     - target: {fileID: 3183823957410342222, guid: 52743f4e1d760f043b3a4396fbc30a0f, type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: 3eefb8b676c10ac4d8a04c25c579c719, type: 2}
+      objectReference: {fileID: 23800000, guid: a9715baf55803ac4a88fe9fdd99217fb, type: 2}
     - target: {fileID: 3613090901463256576, guid: 52743f4e1d760f043b3a4396fbc30a0f, type: 3}
       propertyPath: m_Name
       value: Room 1
