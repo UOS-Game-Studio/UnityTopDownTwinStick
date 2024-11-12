@@ -41,7 +41,7 @@ namespace Common
             
             onDeath.Invoke(this);
             _isDead = true;
-            Destroy(gameObject, 0.1f); // TODO: strip this out to allow whatever handles onDeath to deal with this.
+
         }
 
         private void OnDestroy()

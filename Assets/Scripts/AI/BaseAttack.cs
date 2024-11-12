@@ -11,7 +11,6 @@ namespace AI
     /// </summary>
     public class BaseAttack : MonoBehaviour
     {
-        
         [SerializeField] private LayerMask mask;
         private Transform _attackPoint;
         private float _damage;
@@ -53,9 +52,9 @@ namespace AI
             // this uses an inline declaration of rayHit, which is unique to arguments with the "out" keyword:
             // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/method-parameters#out-parameter-modifier
             if (!Physics.Raycast(attackRay, out RaycastHit rayHit, _range, mask)) yield return null;
-
+            
             Health enemyHealth = rayHit.transform.GetComponent<Health>();
-
+            
             if (enemyHealth)
             {
                 enemyHealth.TakeDamage(_damage);
