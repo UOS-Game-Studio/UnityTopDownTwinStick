@@ -20,6 +20,9 @@ namespace AI
         private Animator _animator;
         private CapsuleCollider _collider;
         
+        // always hash the parameter strings to save on doing costly string comparisons.
+        // Hashing is the process of converting data of arbitrary size to a fixed-size value (https://en.wikipedia.org/wiki/Hash_function)
+        // here we are taking the strings and hashing them to (probably) unique integer values.
         private static readonly int VelocityX = Animator.StringToHash("VelocityX");
         private static readonly int IsDead = Animator.StringToHash("IsDead");
         

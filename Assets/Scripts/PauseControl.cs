@@ -54,7 +54,6 @@ public class PauseControl : MonoBehaviour
     {
         // always reset this when the pause control is removed
         // if we're going to a different scene, we want to make sure it all just "works".
-        Time.timeScale = 1.0f;
         _pauseAction.performed -= IA_ActionPausePerformed;
         _unpauseAction.performed -= IA_ActionPausePerformed;
     }

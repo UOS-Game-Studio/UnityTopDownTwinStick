@@ -21,10 +21,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private float roomStartWaitTime = 0.5f;
     private WaitForSeconds _startWaitTime;
     
-    public UnityEvent onRoomComplete = new UnityEvent();
-    public UnityEvent onGameOver = new UnityEvent();
-    public UnityEvent onRoomBegin = new UnityEvent();
-    public UnityEvent onRoomExit = new UnityEvent();
+    public UnityEvent onRoomComplete = new();
+    public UnityEvent onGameOver = new();
+    public UnityEvent onRoomBegin = new();
+    public UnityEvent onRoomExit = new();
 
     private void Start()
     {
