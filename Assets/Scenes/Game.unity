@@ -886,11 +886,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomPrefabs:
-  - {fileID: 3613090901463256576, guid: 52743f4e1d760f043b3a4396fbc30a0f, type: 3}
   - {fileID: 4096303108623765033, guid: f28840181245017459da36709ba7fa65, type: 3}
-  - {fileID: 3649474738956025118, guid: 17c85ae01d02ee14ebcf8ae001d758eb, type: 3}
-  playerTransform: {fileID: 485858515}
---- !u!1001 &1646331145847093001
+  - {fileID: 7419128854476708672, guid: 17c85ae01d02ee14ebcf8ae001d758eb, type: 3}
+  - {fileID: 5682468992544011438, guid: a71b7b5201fd8d049a3c140649488217, type: 3}
+  playerTransform: {fileID: 2125367371}
+--- !u!1001 &1891880639
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1796,6 +1796,7 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1628736011}
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
@@ -1805,3 +1806,4 @@ SceneRoots:
   - {fileID: 1109207931}
   - {fileID: 124713714}
   - {fileID: 1646331145847093001}
+

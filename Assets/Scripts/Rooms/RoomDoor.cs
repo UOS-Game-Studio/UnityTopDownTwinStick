@@ -23,6 +23,9 @@ namespace Rooms
         public DoorDirection direction;
         public Mesh lockedMesh;
         public Mesh openMesh;
+
+        public GameObject closedDoor;
+        public GameObject openDoor;
         
         // public properties such as these are not serialised by the Inspector, as they are not variables in and of themselves.
         // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-properties
@@ -47,12 +50,13 @@ namespace Rooms
             _spawnComponent = GetComponent<SpawnPoint>();
             _meshFilter = GetComponent<MeshFilter>();
             Debug.Assert(_spawnComponent != null);
-            Debug.Assert(_meshFilter != null);
+            //Debug.Assert(_meshFilter != null);
             
             // transform.Find searches within the transforms hierarchy, not across the entire scene.
             // https://docs.unity3d.com/ScriptReference/Transform.Find.html
             _spawnTransform = transform.Find("SpawnPoint");
-            
+            openDoor.SetActive(false);
+            closedDoor.SetActive(true);
             _spawnComponent.SetSpawnPositionAndRotation(_spawnTransform.position, _spawnTransform.rotation);
         }
 
@@ -66,6 +70,8 @@ namespace Rooms
         private void OnDestroy()
         {
             _gameController.onRoomComplete.RemoveListener(Unlock);
+            openDoor.SetActive(true);
+            closedDoor.SetActive(false);
             _onExitTriggered.RemoveAllListeners();
         }
 
@@ -91,7 +97,9 @@ namespace Rooms
             
             // spawn doors remain closed as the player cannot go "back" on themselves
             // so we show a "locked mesh".
-            _meshFilter.mesh = lockedMesh;
+           // _meshFilter.mesh = lockedMesh;
+            openDoor.SetActive(false);
+            closedDoor.SetActive(true);
         }
         
         private void Unlock()
@@ -99,7 +107,9 @@ namespace Rooms
             if (_isSpawnDoor) return;
             
             _isLocked = false;
-            _meshFilter.mesh = openMesh;
+            openDoor.SetActive(true);
+            closedDoor.SetActive(false);
+           // _meshFilter.mesh = openMesh;
         }
     }
 
