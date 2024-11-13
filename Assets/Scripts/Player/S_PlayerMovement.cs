@@ -1,11 +1,12 @@
 using System;
+using Common;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 namespace Player
 {
-    public class S_PlayerMovment : MonoBehaviour
+    public class S_PlayerMovment : MonoBehaviour, IPausable
     {
         
         //[SerializeField] private float speed = 1.0f;
@@ -19,7 +20,7 @@ namespace Player
         private Vector3 _aimPosition = Vector3.zero;
         private Transform _characterTransform;
         private Camera _mainCamera;
-
+        
         private const float DirOffset = 2.0f;
         private const float MinDistance = 0.4f;
         
@@ -37,7 +38,7 @@ namespace Player
             PauseControl.OnPause.AddListener(PauseHandler);
         }
 
-        private void PauseHandler(bool isPaused)
+        public void PauseHandler(bool isPaused)
         {
             anim.enabled = !isPaused;
             _isPaused = isPaused;
@@ -69,9 +70,6 @@ namespace Player
         public void OnMove(InputAction.CallbackContext context)
         {
             Vector2 inputValue = context.ReadValue<Vector2>();
-            
-            Vector2 characterForward = new Vector2(_characterTransform.forward.x, _characterTransform.forward.z);
-            Vector2 characterRight = new Vector2(_characterTransform.right.x, _characterTransform.right.z);
             Velocity = inputValue.normalized;
         }
 

@@ -48,6 +48,26 @@ namespace Rooms
 
         private void Awake()
         {
+            // adjust the curve keys to adjust for the maximum number of enemies to spawn
+            // this enforces a max number of 3 at the top end, as that's how many doors aren't "locked"
+            spawnCurve.MoveKey(2, new Keyframe(minimumEnemiesToSpawn, 0.0f));
+            spawnCurve.MoveKey(1, new Keyframe(minimumEnemiesToSpawn / 2.0f, MaxDoors));
+            
+            PauseControl.OnPause.AddListener(PauseHandler);
+        }
+        
+        private void PauseHandler(bool isPaused)
+        {
+            _isPaused = isPaused;
+        }
+        
+        private void Start()
+        {
+            _coroutineWait = new WaitForSeconds(spawnRate);
+        }
+
+        private void SetupSpawnPoints()
+        {
             // any call to the "Find" functions is quite expensive, so we only want to do them in functions that don't happen
             // regularly; Start and Awake are ideal.
             // as this script is attached to the base GameObject of Room prefabs, we could do this in the editor by hand instead.
@@ -87,23 +107,6 @@ namespace Rooms
             // just in case we have no doors (for some reason?!) - we'll still spawn monsters
             if (_validDoors.Length == 0)
                 _validDoors = _startPoints;
-
-            // adjust the curve keys to adjust for the maximum number of enemies to spawn
-            // this enforces a max number of 3 at the top end, as that's how many doors aren't "locked"
-            spawnCurve.MoveKey(2, new Keyframe(minimumEnemiesToSpawn, 0.0f));
-            spawnCurve.MoveKey(1, new Keyframe(minimumEnemiesToSpawn / 2.0f, MaxDoors));
-            
-            PauseControl.OnPause.AddListener(PauseHandler);
-        }
-
-        private void PauseHandler(bool isPaused)
-        {
-            _isPaused = isPaused;
-        }
-        
-        private void Start()
-        {
-            _coroutineWait = new WaitForSeconds(spawnRate);
         }
         
         public void StartRoom()
@@ -125,6 +128,8 @@ namespace Rooms
                 return;
             }
 
+            SetupSpawnPoints();
+            
             foreach (var spawn in _startPoints)
             {
                 spawn.SpawnObject(enemyPrefab, transform);
