@@ -29,7 +29,7 @@ public class PauseControl : MonoBehaviour
         _unpauseAction = InputSystem.actions.FindAction("Unpause", true);
         _unpauseAction.performed += IA_ActionPausePerformed;
         
-        playerInput.SwitchCurrentActionMap("Player");
+        //playerInput.SwitchCurrentActionMap("Player");
     }
 
     private void PerformPause()
