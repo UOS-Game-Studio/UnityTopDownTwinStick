@@ -16,7 +16,7 @@ namespace Rooms
     /// RoomDoor is the logical representation of the doors that exist in each room.
     /// they are responsible for spawning enemies via an associated <c>SpawnPoint</c> when told to by <c>SpawnController</c>
     /// Events:
-    ///     <c>_onExitTriggered</c> - invoked when the player enters this doors trigger volume when the door is unlocked.
+    ///     <c>_onExitTriggered</c> - invoked when the player enters the door trigger volume when the door is unlocked.
     /// </summary>
     public class RoomDoor : MonoBehaviour
     {
@@ -27,9 +27,10 @@ namespace Rooms
         public GameObject closedDoor;
         public GameObject openDoor;
         
-        // public properties such as these are not serialised by the Inspector, as they are not variables in and of themselves.
+        // public properties such as these are not serialised by the Inspector, as they are not variables in and of themselves
+        // as they can have logic associated with them.
         // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-properties
-        // another example in a different format is seen in <c>WeaponProjectilePool<c> for the <c>Pool<c> property.
+        // another example in a different format is seen in WeaponProjectilePool for the Pool property.
         // to see these values in the inspector, we either add the [SerializeField] attribute to the associated variables
         // or we make the variables public and remove these properties.
         public bool IsSpawnDoor => _isSpawnDoor;
@@ -41,22 +42,21 @@ namespace Rooms
         
         private SpawnPoint _spawnComponent;
         private Transform _spawnTransform;
-        private MeshFilter _meshFilter;
         private GameController _gameController;
         private UnityEvent _onExitTriggered = new UnityEvent();
 
         private void Awake()
         {
             _spawnComponent = GetComponent<SpawnPoint>();
-            _meshFilter = GetComponent<MeshFilter>();
             Debug.Assert(_spawnComponent != null);
-            //Debug.Assert(_meshFilter != null);
+            
+            // enforce correct active status for open / closed children.
+            openDoor.SetActive(false);
+            closedDoor.SetActive(true);
             
             // transform.Find searches within the transforms hierarchy, not across the entire scene.
             // https://docs.unity3d.com/ScriptReference/Transform.Find.html
             _spawnTransform = transform.Find("SpawnPoint");
-            openDoor.SetActive(false);
-            closedDoor.SetActive(true);
             _spawnComponent.SetSpawnPositionAndRotation(_spawnTransform.position, _spawnTransform.rotation);
         }
 
@@ -97,7 +97,6 @@ namespace Rooms
             
             // spawn doors remain closed as the player cannot go "back" on themselves
             // so we show a "locked mesh".
-           // _meshFilter.mesh = lockedMesh;
             openDoor.SetActive(false);
             closedDoor.SetActive(true);
         }
@@ -109,7 +108,6 @@ namespace Rooms
             _isLocked = false;
             openDoor.SetActive(true);
             closedDoor.SetActive(false);
-           // _meshFilter.mesh = openMesh;
         }
     }
 
