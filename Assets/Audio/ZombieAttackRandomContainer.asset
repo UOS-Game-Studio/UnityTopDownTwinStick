@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1233149941 &-7025160843185232009
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ZombieAttack01_{-7025160843185232009}
+  m_AudioClip: {fileID: 8300000, guid: 371e48f6e8ec2644aae3ebb77565bf6c, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &3528409482755290174
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ZombieAttack02_{3528409482755290174}
+  m_AudioClip: {fileID: 8300000, guid: 6013b1f5627ef634b8054d51053bf8e6, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &4833488536960111707
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ZombieAttack05_{4833488536960111707}
+  m_AudioClip: {fileID: 8300000, guid: 13fca109a8bdcff45b79d48181998aff, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &6078139779999439852
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ZombieAttack03_{6078139779999439852}
+  m_AudioClip: {fileID: 8300000, guid: 193fae97dd15bf8498738890213fd1bf, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1307931743 &6418180475301049370
+AudioRandomContainer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ZombieAttackRandomContainer
+  m_Volume: 0
+  m_Pitch: 0
+  m_AutomaticTriggerTime: 0
+  m_LoopCount: 1
+  m_VolumeRandomizationRange: {x: 0, y: 0}
+  m_PitchRandomizationRange: {x: -124.13806, y: 165.51709}
+  m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0}
+  m_LoopCountRandomizationRange: {x: 0, y: 0}
+  m_Elements:
+  - {fileID: -7025160843185232009}
+  - {fileID: 3528409482755290174}
+  - {fileID: 6078139779999439852}
+  - {fileID: 4833488536960111707}
+  - {fileID: 6861173403062888241}
+  m_AvoidRepeatingLast: 4
+  m_PlaybackMode: 2
+  m_TriggerMode: 0
+  m_AutomaticTriggerMode: 1
+  m_LoopMode: 2
+  m_VolumeRandomizationEnabled: 0
+  m_PitchRandomizationEnabled: 1
+  m_AutomaticTriggerTimeRandomizationEnabled: 0
+  m_LoopCountRandomizationEnabled: 0
+--- !u!1233149941 &6861173403062888241
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ZombieAttack06_{6861173403062888241}
+  m_AudioClip: {fileID: 8300000, guid: 335c82bff23141d4f81ffb380eb69ba5, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
