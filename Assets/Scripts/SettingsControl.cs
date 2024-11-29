@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.Events;
@@ -32,10 +31,10 @@ public class SettingsControl : MonoBehaviour
     public float MusicVolume => _musicVolume;
     public bool IsMuted => _muted;
     
-    // we take advantage of the remap function from Unity.Mathematics here to
-    // convert the volume range (0 - 100) into a decibel range (-80 - 0).
-    public float SfxDb => math.remap(0.0f, 100.0f, -80.0f, 0.0f, _sfxVolume);
-    public float MusicDb => math.remap(0.0f, 100.0f, -80.0f, 0.0f, _musicVolume);
+    // we take advantage of the log function from Unity.Mathematics here to
+    // convert the volume range (0.001 - 1) into the logarithmic decibel range.
+    public float SfxDb => math.log(_sfxVolume) * 20; 
+    public float MusicDb => math.log(_musicVolume) * 20;
 
     private static SettingsControl _instance;
     
@@ -76,7 +75,7 @@ public class SettingsControl : MonoBehaviour
 
     public void OnToggleMute()
     {
-        // this is a short cut way of saying _muted is equal to the opposite value it currently has.
+        // this is a shortcut way of saying _muted is equal to the opposite value it currently has.
         // we can only really do this with booleans, as it flips a false into true and vice versa.
         _muted = !_muted;
         onSettingsChanged.Invoke();
