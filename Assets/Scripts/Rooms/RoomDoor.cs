@@ -21,9 +21,6 @@ namespace Rooms
     public class RoomDoor : MonoBehaviour
     {
         public DoorDirection direction;
-        public Mesh lockedMesh;
-        public Mesh openMesh;
-
         public GameObject closedDoor;
         public GameObject openDoor;
         

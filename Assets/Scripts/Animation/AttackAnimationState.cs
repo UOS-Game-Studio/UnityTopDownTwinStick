@@ -7,7 +7,6 @@ namespace Animation
     {
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            Debug.Log(animator.gameObject.name + ": Attack StateExit");
             BaseAttack attack = animator.GetComponent<BaseAttack>();
 
             if (attack)
