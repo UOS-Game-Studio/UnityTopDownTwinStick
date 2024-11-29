@@ -17,8 +17,8 @@ namespace UI
 
         private Slider damageGauge;
         private float damageReduction = -1f;
-        private bool _startedMoving = false;
-        private bool _startedShooting = false;
+        private bool _startedMoving;
+        private bool _startedShooting;
 
         private const float MINSLIDERVALUE = 0.0f;
         private const float MAXSLIDERVALUE = 100.0f;
@@ -28,15 +28,6 @@ namespace UI
         private InputAction _RollAction;
 
         #region Unity
-
-        /*private void Awake()
-        {
-            // Example damage curve. At the mid point, damage is equal to 3 and then ramps up towards 10
-            adjustedDamageCurve.MoveKey(2, new Keyframe(MAXSLIDERVALUE, 10f));
-            adjustedDamageCurve.MoveKey(1, new Keyframe(MAXSLIDERVALUE/2.0f, 3f));
-        }*/
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             damageGauge = GetComponent<Slider>();
@@ -73,27 +64,27 @@ namespace UI
         // A series of "input action" methods which lets us keep track of when the player has begun or cancelled
         // a particular action. In the case of rolling, it's simply whether the player has performed the roll.
 
-        public void IA_OnMoveStarted(InputAction.CallbackContext obj)
+        private void IA_OnMoveStarted(InputAction.CallbackContext obj)
         {
             _startedMoving = true;
         }
 
-        public void IA_OnMoveEnded(InputAction.CallbackContext obj)
+        private void IA_OnMoveEnded(InputAction.CallbackContext obj)
         {
             _startedMoving = false;
         }
 
-        public void IA_OnAttackStarted(InputAction.CallbackContext obj)
+        private void IA_OnAttackStarted(InputAction.CallbackContext obj)
         {
             _startedShooting = true;
         }
 
-        public void IA_OnAttackEnded(InputAction.CallbackContext obj)
+        private void IA_OnAttackEnded(InputAction.CallbackContext obj)
         {
             _startedShooting = false;
         }
 
-        public void IA_OnRoll(InputAction.CallbackContext obj)
+        private void IA_OnRoll(InputAction.CallbackContext obj)
         {
             AdjustDamageGaugeValue(weaponStats.baseDamage + weaponStats.rollDamageModifier);
         }
@@ -103,7 +94,7 @@ namespace UI
         /// Probably some event based system
         /// </summary>
         /// <param name="valueToAdjustBy"></param>
-        public void AdjustDamageGaugeValue(float valueToAdjustBy)
+        private void AdjustDamageGaugeValue(float valueToAdjustBy)
         {
             damageGauge.value += valueToAdjustBy * Time.deltaTime;
             weaponStats.adjustedValue = adjustedDamageCurve.Evaluate(damageGauge.value);
@@ -122,7 +113,7 @@ namespace UI
         /// <summary>
         /// If we're moving or shooting, increase damage appropriately
         /// </summary>
-        void IncreaseDamageBasedOnModifiers()
+        private void IncreaseDamageBasedOnModifiers()
         {
             if(_startedMoving)
             {
@@ -139,7 +130,7 @@ namespace UI
         /// the edge case of having 99.99999999 by subtracting the current value from the total and checking against
         /// some threshold (wiggle room)
         /// </summary>
-        void CheckIfOverheated()
+        private void CheckIfOverheated()
         {
             if (Math.Abs(damageGauge.value - MAXSLIDERVALUE) < 0.01f)
             {
@@ -150,7 +141,7 @@ namespace UI
         /// <summary>
         /// Always decrease damage if applicable. Applicability depends on the active reload mechanic
         /// </summary>
-        void DecreaseDamageIfApplicable(bool ifApplicable)
+        private void DecreaseDamageIfApplicable(bool ifApplicable)
         {
             if(!ifApplicable)
             {

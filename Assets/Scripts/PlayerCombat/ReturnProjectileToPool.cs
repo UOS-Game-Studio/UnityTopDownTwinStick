@@ -9,7 +9,7 @@ namespace PlayerCombat
     /// </summary>
     public class ReturnProjectileToPool : MonoBehaviour
     {
-        public IObjectPool<PlayerProjectile> pool;
+        public IObjectPool<PlayerProjectile> Pool;
         public PlayerProjectile projectile; 
         
         private void OnCollisionEnter(Collision collision)
@@ -17,7 +17,7 @@ namespace PlayerCombat
             // we occasionally find ourselves in a position where the gameObject has hit 2 
             // things in short succession and so has already been released to the pool.
             if(gameObject.activeSelf)
-                pool.Release(projectile);
+                Pool.Release(projectile);
         }
     }
 }

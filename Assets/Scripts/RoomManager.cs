@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using Rooms;
 using Unity.Mathematics;
 using UnityEngine;

@@ -1,4 +1,3 @@
-using System.Collections;
 using Common;
 using UnityEngine;
 
@@ -21,7 +20,6 @@ namespace AI
         private Animator _anim;
         private float _damage;
         private float _range;
-        private float _windupTime;
         private bool _isAttacking;
         
         private static readonly int CanAttack = Animator.StringToHash("CanAttack");
@@ -46,7 +44,6 @@ namespace AI
         {
             _range = range;
             _damage = damage;
-            _windupTime = windupTime;
         }
 
         /// <summary>
@@ -59,7 +56,7 @@ namespace AI
         }
 
         /// <summary>
-        /// Executes the attack by raycasting to detect and damage enemies.
+        /// Executes the attack by using a raycast to detect and damage enemies.
         /// </summary>
         public void DoAttack()
         {

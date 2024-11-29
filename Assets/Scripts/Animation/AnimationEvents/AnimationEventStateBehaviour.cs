@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Specialized;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Animation.AnimationEvents
 {

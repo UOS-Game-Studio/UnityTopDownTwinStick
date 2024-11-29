@@ -2,6 +2,6 @@
 {
     public interface IPausable
     {
-        public abstract void PauseHandler(bool isPaused);
+        public void PauseHandler(bool isPaused);
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -7,7 +6,7 @@ namespace PlayerCombat
     /// <summary>
     /// For objects that have short life times and where there are potentially lots of them being used,
     /// we want to avoid instantiating and destroying too often. A pool lets us avoid that by storing a set of objects
-    /// that are instantiated ahead of time and then activated and used, when they "die" we deactivate them and they go
+    /// that are instantiated ahead of time and then activated and used, when they "die" we deactivate them, and they go
     /// back into the pool.
     /// </summary>
     public class WeaponProjectilePool : MonoBehaviour
@@ -26,11 +25,10 @@ namespace PlayerCombat
         {
             get
             {
-                if (_pool == null)
-                {
-                    _pool = new ObjectPool<PlayerProjectile>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
-                        OnDestroyPoolObject, collectionChecks, 10, maxPoolSize);
-                }
+                if (_pool != null) return _pool;
+                
+                _pool = new ObjectPool<PlayerProjectile>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
+                    OnDestroyPoolObject, collectionChecks, 10, maxPoolSize);
 
                 return _pool;
             }
@@ -67,7 +65,7 @@ namespace PlayerCombat
             PlayerProjectile playerProj = projectile.GetComponent<PlayerProjectile>();
             ReturnProjectileToPool returnToPool = projectile.GetComponent<ReturnProjectileToPool>();
             
-            returnToPool.pool = Pool;
+            returnToPool.Pool = Pool;
             returnToPool.projectile = playerProj;
             return playerProj;
         }

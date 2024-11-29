@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,7 +27,7 @@ namespace Rooms
         // as they can have logic associated with them.
         // https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/using-properties
         // another example in a different format is seen in WeaponProjectilePool for the Pool property.
-        // to see these values in the inspector, we either add the [SerializeField] attribute to the associated variables
+        // to see these values in the inspector, we either add the [SerializeField] attribute to the associated variables,
         // or we make the variables public and remove these properties.
         public bool IsSpawnDoor => _isSpawnDoor;
         public bool IsExitDoor => _isExitDoor;

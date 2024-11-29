@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace Rooms
     /// </summary>
     public class SpawnController : MonoBehaviour
     {
-        // AnimationCurves are sort of fancy, they're so named because they are mostly used for animation purposes
+        // AnimationCurves are sort of fancy, they're so named because they are mostly used for animation purposes,
         // but we can use them for all sorts of things that we want to base on a curve, XP or levelling up for instance
         // we just treat the "time" value differently.
         // https://docs.unity3d.com/ScriptReference/AnimationCurve.html
@@ -31,7 +30,7 @@ namespace Rooms
         
         private SpawnPoint[] _startPoints;
         private SpawnPoint[] _validDoors;
-        private int _spawnCount = 0;
+        private int _spawnCount;
         
         private WaitForSeconds _coroutineWait;
 
@@ -163,7 +162,7 @@ namespace Rooms
                 // we use Ceil to lock the returned value to a whole integer.
                 int numberToSpawn = (int)Mathf.Ceil(spawnCurve.Evaluate(_spawnCount));
                 
-                // We spawn at doors in a round robin fashion, here we pick a random door to start at.
+                // We spawn at doors in a round-robin fashion, here we pick a random door to start at.
                 int startDoor = Random.Range(0, _validDoors.Length);
 
                 for (int i = 0; i < numberToSpawn; i++)

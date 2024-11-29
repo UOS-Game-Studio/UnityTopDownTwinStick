@@ -10,7 +10,7 @@ namespace Player
     {
         
         //[SerializeField] private float speed = 1.0f;
-        private Vector2 Velocity = new();
+        private Vector2 _velocity;
         private Animator anim;
 
         public Transform aimPointObject;
@@ -53,7 +53,7 @@ namespace Player
             {
                 if (shouldStopMovement)
                 {
-                    Velocity = Vector2.zero;
+                    _velocity = Vector2.zero;
                 }
                 else
                 {
@@ -62,15 +62,15 @@ namespace Player
                 }
             }
             
-            anim.SetFloat(VelocityX, Velocity.x);
-            anim.SetFloat(VelocityZ, Velocity.y);
+            anim.SetFloat(VelocityX, _velocity.x);
+            anim.SetFloat(VelocityZ, _velocity.y);
             _characterTransform.LookAt(_aimPosition);
         }
         
         public void OnMove(InputAction.CallbackContext context)
         {
             Vector2 inputValue = context.ReadValue<Vector2>();
-            Velocity = inputValue.normalized;
+            _velocity = inputValue.normalized;
         }
 
         // Rotate uses GamePad stick or Keyboard

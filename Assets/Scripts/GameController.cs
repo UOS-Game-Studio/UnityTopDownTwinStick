@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -60,7 +59,7 @@ public class GameController : MonoBehaviour
     // handler for Health.onDeath
     public void OnCharacterKilled(Common.Health charHealth)
     {
-        // it's an enemy if the associated gameobject has an enemycore component
+        // it's an enemy if the associated GameObject has an EnemyCore component
         bool isEnemy = charHealth.GetComponent<AI.EnemyCore>() != null;
         bool isPlayer = !isEnemy; // if not, it must be a player (assumptions!)
 

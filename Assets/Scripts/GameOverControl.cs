@@ -1,6 +1,5 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 /// <summary>
 /// GameOverControl handles pausing the game and showing the "game over" UI elements when <c>OnGameOver</c> is called
