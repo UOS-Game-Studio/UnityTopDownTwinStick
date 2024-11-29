@@ -17,6 +17,8 @@ namespace PlayerCombat
         public GameObject projectilePrefab;
         public WeaponStats stats;
         public Transform weaponMuzzleTransform;
+
+        private AudioSource _audioSource;
         
         private InputAction _fireAction;
         private WeaponProjectilePool _projectilePool;
@@ -46,6 +48,8 @@ namespace PlayerCombat
 
             // cache the WaitForSeconds object as the fire rate does not change as we play.
             _fireDelay = new WaitForSeconds(stats.fireDelay);
+            
+            _audioSource = GetComponent<AudioSource>();
         }
         
         private void IA_FireActionOnCanceled(InputAction.CallbackContext obj)
@@ -93,11 +97,14 @@ namespace PlayerCombat
             {
                 // retrieve a projectile from the object pool, move it to the fire point and set it moving
                 PlayerProjectile projectileObject = _projectilePool.Pool.Get();
-                
+                    
                 // SetPositionAndRotation is a more efficient way of doing this than setting position and rotation properties
                 // individually. https://docs.unity3d.com/ScriptReference/Transform.SetPositionAndRotation.html
                 projectileObject.transform.SetPositionAndRotation(weaponMuzzleTransform.position, weaponMuzzleTransform.rotation);
                 projectileObject.OnFire(weaponMuzzleTransform.forward, GetCurrentDamage());
+
+                _audioSource?.Play();
+                
                 _lastFire = Time.time;
                 yield return _fireDelay;
             }
