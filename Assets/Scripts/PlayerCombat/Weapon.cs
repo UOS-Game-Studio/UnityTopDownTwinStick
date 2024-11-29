@@ -1,18 +1,14 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace PlayerCombat
 {
     /// <summary>
-    /// PlayerWeapon handles all things that relate to well, the players weapon.
+    /// PlayerWeapon handles all things that relate to well, the players' weapon.
     /// base stats are pulled in from the WeaponStats ScriptableObject
     /// </summary>
-    
-    // REVIEW: Do we rename this to just "Weapon"? It's in the PlayerCombat namespace, so it can't clash with anything else?
-    public class PlayerWeapon : MonoBehaviour
+    public class Weapon : MonoBehaviour
     {
         public GameObject projectilePrefab;
         public WeaponStats stats;
@@ -32,7 +28,7 @@ namespace PlayerCombat
         void Start()
         {
             // By adding the component here, we guarantee it never gets "forgotten"
-            // we could do the same thing by adding a [RequireComponent(typeof(WeaponProjectilePool)] attribute
+            // we could do the same thing by adding a [RequireComponent(typeof(WeaponProjectilePool))] attribute
             // above the class declaration and then doing _projectilePool = GetComponent<WeaponProjectilePool>(); here instead
             _projectilePool = gameObject.AddComponent<WeaponProjectilePool>();
             _projectilePool.projectilePrefab = projectilePrefab;
