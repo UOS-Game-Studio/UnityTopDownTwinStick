@@ -76,6 +76,8 @@ namespace Player
         // Rotate uses GamePad stick or Keyboard
         public void OnRotate(InputAction.CallbackContext context)
         {
+            if (_isPaused) return;
+            
             Vector2 direction = context.ReadValue<Vector2>();
 
             // gives us a bit of a dead zone on the stick
@@ -93,7 +95,7 @@ namespace Player
         // Aim follows the mouse cursor
         public void OnAim(InputAction.CallbackContext context)
         {
-            if (Time.timeScale == 0) return;
+            if (_isPaused || Time.timeScale == 0 || _mainCamera == null) return;
             
             Vector2 input = context.ReadValue<Vector2>();
             Vector3 worldMouse = _mainCamera.ScreenToWorldPoint(new Vector3(input.x, input.y, 10.0f));
@@ -108,11 +110,6 @@ namespace Player
 
             if (worldMouseNoY != Vector3.zero)
                 _aimPosition = worldMouseNoY;
-        }
-
-        public void OnInteract(InputAction.CallbackContext context)
-        {
-            throw new NotImplementedException();
         }
 
         public void OnRoll(InputAction.CallbackContext context)
